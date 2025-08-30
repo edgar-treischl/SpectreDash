@@ -9,6 +9,8 @@ packages = [{ include = "spectredash", from = "src" }]
 [tool.poetry.dependencies]
 python = ">=3.13"
 numpy = "^1.26.0"
+shiny = "^0.1.0"  # Add Shiny for Python dependency
+duckdb = "^0.3.0" # If you use DuckDB
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
