@@ -1,8 +1,18 @@
 import seaborn as sns
-from shiny import App, render, ui
+from shiny import App, Inputs, Outputs, Session, reactive, render, ui
 from spectredash.getduck import duckdb_table
 from spectredash.tables import table_overview
+from spectredash.utils import filter_and_sort_versions
+
 from pathlib import Path
+import duckdb
+import pandas as pd
+
+
+def datasets():
+    df = duckdb_table(table="pointers")
+    tables = df["table"].unique().tolist()
+    return tables
 
 
 df = sns.load_dataset('penguins')  # Replace with your dataset name if needed
@@ -41,10 +51,11 @@ page1 = ui.navset_card_underline(
                 ui.h4("Select the intel for:", class_="text-muted small"),
                 ui.row(
                     ui.column(6,
-                    ui.input_select("datax", "Data", choices=["mtcars", "iris"])
+                    ui.input_select("first_choice", "Pick your table:", choices=datasets()),
                     ),
                     ui.column(6,
-                    ui.input_select("var", "Version (optional)", choices=["bill_length_mm", "body_mass_g"])
+                    ui.output_ui("dependent_select"),
+                    #ui.input_select("var", "Version (optional)", choices=["bill_length_mm", "body_mass_g"])
                     ),
                     ui.p("Monitoring data made simple with spectre.", class_="text-muted small")
                     ),
@@ -80,7 +91,23 @@ app_ui = ui.page_navbar(
 )
 
 
-def app_server(input, output, session):
+def app_server(input: Inputs, output: Outputs, session: Session):
+
+    @output
+    @render.ui
+    def dependent_select():
+        choice = input.first_choice()
+        if not choice:
+            return ui.TagList()  # no choices yet
+
+        filtered_df = filter_and_sort_versions(choice)
+        versions = filtered_df['version'].astype(str).tolist()  # convert Series to list of strings
+
+        if not versions:
+            return ui.TagList(ui.h5("No versions available"))
+
+        return ui.input_select("second_choice", "Optional: Pick an older version", choices=versions)
+
 
     @render.plot
     def hist():

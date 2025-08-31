@@ -56,12 +56,7 @@ def table_overview(df: pd.DataFrame) -> GT:
             date_style="iso"
         )
         .cols_align("left", columns=df_display.columns.tolist())
-        .fmt_markdown(columns=[f"{emoji.emojize(':link:')} Link"])  # render markdown links correctly
-        .tab_source_note(
-            source_note=md(
-                f"{emoji.emojize(':top_hat:')} [Visit the OddJob Repository](https://gitlab.lrz.de/edgar-treischl/OddJob)"
-            )
-        )
+        .fmt_markdown(columns=[f"{emoji.emojize(':link:')} Link"])
     )
 
     return gt_table
