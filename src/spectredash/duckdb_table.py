@@ -13,10 +13,21 @@ def duckdb_table(table):
     Returns:
     - pd.DataFrame: Data from the specified table.
     """
-    db_path = os.path.join(os.getcwd(), "data", "meta.duckdb")  # Adjust path as needed
+    db_path = os.path.join(os.getcwd(), "src", "spectredash", "data", "meta.duckdb")
+    
+    # Check if the database file exists
+    if not os.path.exists(db_path):
+        raise FileNotFoundError(f"Database file not found at {db_path}")
+
     con = duckdb.connect(db_path, read_only=True)
     try:
         query = f"SELECT * FROM {table}"
-        return con.execute(query).fetchdf()  # Return data as pandas DataFrame
+        df = con.execute(query).fetchdf()
+        if df.empty:
+            print(f"Warning: Table '{table}' is empty.")
+        return df
+    except Exception as e:
+        print(f"Error fetching data from table '{table}': {e}")
+        return pd.DataFrame()  # Return an empty DataFrame on error
     finally:
         con.close()
