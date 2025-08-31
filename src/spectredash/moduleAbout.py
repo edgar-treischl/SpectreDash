@@ -45,7 +45,7 @@ def about_ui():
                             6,
                             ui.input_select(
                                 "first_choice",
-                                "Pick your table:",
+                                "Data:",
                                 choices=datasets(),
                                 selected=datasets()[0] if datasets() else None
                             )
@@ -56,7 +56,8 @@ def about_ui():
                         ),
                         ui.p("Monitoring data made simple with Spectre.", class_="text-muted small")
                     ),
-                    ui.hr(),
+                    ui.br(),
+                    #ui.hr(),
                     ui.output_ui("table_html")
                 )
             )
@@ -84,7 +85,7 @@ def about_server(input, output, session):
 
         return ui.input_select(
             "second_choice",
-            "Optional: Pick an older version",
+            "Optional: Pick a version",
             choices=versions
         )
 

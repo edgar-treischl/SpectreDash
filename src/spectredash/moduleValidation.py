@@ -16,7 +16,7 @@ from spectredash.state import shared_first_choice, shared_second_choice
 def validation_ui():
     return ui.navset_card_underline(
         ui.nav_panel(
-            ui.h2(f"{emoji.emojize(':brain:')} Validation Report", class_="m-0"),
+            ui.h2(f"{emoji.emojize(':bullseye:')} Validation Report", class_="m-0"),
             ui.output_ui("validation_report_ui"),  # matches output from server module
             # ui.output_plot("hist"),  # optional additional outputs
         )
