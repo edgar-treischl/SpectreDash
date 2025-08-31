@@ -5,6 +5,7 @@ from .app import app_ui, app_server  # Exposing the app UI and server to make th
 from .getduck import duckdb_table  # Expose the DuckDB function
 from .about import about_ui, about_server  # Expose the About module
 from .tables import table_overview  
+from .tables import table_pointer
 from .utils import filter_and_sort_versions
 
 

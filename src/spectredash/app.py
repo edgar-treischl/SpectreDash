@@ -1,8 +1,12 @@
 import seaborn as sns
 from shiny import App, Inputs, Outputs, Session, reactive, render, ui
 from spectredash.getduck import duckdb_table
-from spectredash.tables import table_overview
+from spectredash.tables import table_overview, table_pointer
 from spectredash.utils import filter_and_sort_versions
+import emoji
+
+
+
 
 from pathlib import Path
 import duckdb
@@ -20,8 +24,7 @@ df = sns.load_dataset('penguins')  # Replace with your dataset name if needed
 
 # The contents of the first 'page' is a navset with two 'panels'.
 page1 = ui.navset_card_underline(
-    ui.nav_panel(
-        "🔫 About",
+    ui.nav_panel(ui.h2(f"{emoji.emojize(':water_pistol:')} About the app", class_="m-0"),
         ui.row(
             ui.column(
                 5,
@@ -41,7 +44,7 @@ page1 = ui.navset_card_underline(
                         ui.tags.li(ui.strong("Class Matrix:"), " Depicts which classes the data includes."),
                         ui.tags.li(ui.strong("Label Matrix:"), " Shows which labels the data includes.")
                         ),
-                        ui.p("Created with ❤️, shiny, and ",
+                        ui.p(f"Create with {emoji.emojize(':red_heart:')}, shiny, and ",
                         ui.tags.img(src="octo.png", height="32px", class_="me-2")
                         )
                 ),
@@ -51,7 +54,8 @@ page1 = ui.navset_card_underline(
                 ui.h4("Select the intel for:", class_="text-muted small"),
                 ui.row(
                     ui.column(6,
-                    ui.input_select("first_choice", "Pick your table:", choices=datasets()),
+                    ui.input_select( "first_choice", "Pick your table:", choices=datasets(),  selected=datasets()[0] if datasets() else None),
+                    #ui.input_select("first_choice", "Pick your table:", choices=datasets()),
                     ),
                     ui.column(6,
                     ui.output_ui("dependent_select"),
@@ -61,7 +65,7 @@ page1 = ui.navset_card_underline(
                     ),
                 ui.hr(),
                 ui.output_ui("table_html")
-            ),
+            )
         )
     )
 )
@@ -70,22 +74,25 @@ page1 = ui.navset_card_underline(
 
 
 page2 = ui.navset_card_underline(
-    ui.nav_panel("About", ui.output_plot("hist")),
+    ui.nav_panel(ui.h2(f"{emoji.emojize(':brain:')} Overview of the run", class_="m-0"), 
+    ui.output_ui("table_html2")
+    #ui.output_plot("hist")
+    ),
     footer=ui.input_select(
         "vari", "Select variable", choices=["bill_length_mm", "body_mass_g"]
-    ),
-    title="Penguins data",
+    )
 )
 
 
 app_ui = ui.page_navbar(
-    #ui.nav_spacer(),
     ui.nav_panel("About", page1),
-    ui.nav_panel("More", page2),
-    title=ui.span(
-        ui.img(src="logo.png", height="60px", class_="me-2"),
-        "SpectreApp"
-    ),
+    ui.nav_panel("Overview", page2),
+    title = ui.a(
+        ui.span(ui.img(src="logo.png", height="60px", class_="me-2"), 
+        "SpectreApp"),
+    href="/",  # Replace with your actual app URL path if needed
+    class_="text-decoration-none d-flex align-items-center text-body"
+),
     footer = ui.p(ui.tags.a("🎩 Visit the OddJob Repository", href="https://gitlab.lrz.de/edgar-treischl/OddJob", target="_blank")
 )
 )
@@ -124,11 +131,24 @@ def app_server(input: Inputs, output: Outputs, session: Session):
     @output()
     @render.ui
     def table_html():
-
         df = duckdb_table(table = "pointers")
         # Generate HTML for styled table
         html = table_overview(df)
-        
+        return html
+
+    @output()
+    @render.ui
+    def table_html2():
+        choice = input.first_choice()
+        #version = input.dependent_select()
+        version = input.second_choice()
+
+        if not choice:
+            return ui.div("Please select a dataset first.")
+        if not version:
+            return ui.div("Please select a version first.")
+
+        html = table_pointer(choice, version)
         return html
 
 www_dir = Path(__file__).parent / "www"
