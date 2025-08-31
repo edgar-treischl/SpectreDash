@@ -44,7 +44,7 @@ page1 = ui.navset_card_underline(
                         ui.tags.li(ui.strong("Class Matrix:"), " Depicts which classes the data includes."),
                         ui.tags.li(ui.strong("Label Matrix:"), " Shows which labels the data includes.")
                         ),
-                        ui.p(f"Create with {emoji.emojize(':red_heart:')}, shiny, and ",
+                        ui.p(f"Created with {emoji.emojize(':red_heart:')}, shiny, and ",
                         ui.tags.img(src="octo.png", height="32px", class_="me-2")
                         )
                 ),
@@ -93,7 +93,7 @@ app_ui = ui.page_navbar(
     href="/",  # Replace with your actual app URL path if needed
     class_="text-decoration-none d-flex align-items-center text-body"
 ),
-    footer = ui.p(ui.tags.a("🎩 Visit the OddJob Repository", href="https://gitlab.lrz.de/edgar-treischl/OddJob", target="_blank")
+    footer = ui.p(ui.tags.a(f"Go to: {emoji.emojize(':top_hat:')}", href="https://gitlab.lrz.de/edgar-treischl/OddJob", target="_blank")
 )
 )
 
