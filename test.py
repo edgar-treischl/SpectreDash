@@ -1,67 +1,61 @@
+# import os
+# import pandas as pd
 
+# # Assuming duckdb_table function is already defined
 # from spectredash.getduck import duckdb_table
-# from spectredash.tables import table_pointer
 
-# pointer_name = "penguins"
-# point_df = duckdb_table(table="pointers")
+# # Hardcoded dataset and version (for testing purposes)
+# ds = "penguins"  # Replace with actual dynamic dataset
+# ver = "2025-08-20T13-52-15"  # Replace with actual dynamic version
 
+# # Debugging: Print the selected dataset and version
+# print(f"Selected dataset: {ds}, version: {ver}")
 
-# table_pointer("penguins", "2025-08-20T13-52-15")
+# if not ds or not ver:
+#     print("No dataset or version selected.")
+#     # Return early or raise an error as per your requirements
+#     exit()
 
+# try:
+#     # Pull pointer data from duckdb
+#     pointer_df = duckdb_table(table="pointers")
+    
+#     # Debugging: Print the pointer dataframe before any filtering
+#     print(f"Pointer DataFrame before filtering:\n{pointer_df}")
 
-# meta_df = duckdb_table(table="columns", name=pointer_name)
+#     # Filter the dataframe based on the dataset and version
+#     pointer_df = pointer_df[pointer_df["table"] == ds]
+#     pointer_df = pointer_df[pointer_df["version"] == ver]
 
-#     # Filter pointer info
-#     pointer_row = pointers_df[
-#         (pointers_df["table"] == pointer_name) &
-#         (pointers_df["version"] == date)
-#     ].copy()
+#     # Debugging: Print the filtered pointer dataframe
+#     print(f"Filtered pointer_df:\n{pointer_df}")
 
-#     if pointer_row.empty:
-#         raise ValueError(f"No pointer found for '{pointer_name}' on '{date}'")
+#     # Ensure pointer_df is not empty
+#     if pointer_df.empty:
+#         print(f"No matching report found for dataset '{ds}' and version '{ver}'.")
+#         exit()  # Or handle the error as needed
 
-#     # Prepare metadata table
-#     meta_filtered = (
-#         meta_df[
-#             (meta_df["table"] == pointer_name) &
-#             (meta_df["version"] == date)
-#         ]
-#         [["column_name", "label", "type", "levels", "description"]]
-#         .rename(columns={"column_name": "column"})
-#         .copy()
-#     )
+#     # Get the report path from the first row
+#     report_path = os.path.join("src", "spectredash", "data", pointer_df.iloc[0]["report_path"])
 
-#     # Titles and notes
-#     table_title = f"**Data:** {pointer_name}"
-#     table_subtitle = (
-#         f"{emoji.emojize(':package:')} **Build:** {pointer_row['version'].iloc[0]}<br>"
-#         f"{emoji.emojize(':check_mark_button:')} **Validation:** {pointer_row['status'].iloc[0]}"
-#     )
-#     table_caption = f"{emoji.emojize(':detective:')} **Agent:** {pointer_row['validated_by'].iloc[0]}"
+#     # Debugging: Print the constructed report path
+#     print(f"Constructed report path: {report_path}")
 
-#     # Build the table using great_tables
-#     gt_table = (
-#         GT(meta_filtered)
-#         .tab_header(title=md(table_title), subtitle=md(table_subtitle))
-#         .cols_label(
-#             column=md("**Column**"),
-#             label=md("**Label**"),
-#             type=md("**Type**"),
-#             levels=md("**Levels**"),
-#             description=md("**Description**")
-#         )
-#         .fmt_markdown(columns=meta_filtered.columns.tolist())
-#         .tab_style(
-#             style=style.text(size="22px", weight="500", align="left", color="#444444"),
-#             locations=loc.title()
-#         )
-#         .tab_style(
-#             style=style.text(size="18px", align="left"),
-#             locations=loc.subtitle()
-#         )
-#         .tab_options(table_font_size=pct(110), table_width="650px")
-#         .opt_table_font(font=google_font("IBM Plex Sans"))
-#         .tab_source_note(source_note=md(table_caption))
-#     )
+#     # Check if the report file exists at the constructed path
+#     if os.path.exists(report_path):
+#         print(f"Report file found at {report_path}")
+        
+#         # Loading the content of the report
+#         with open(report_path, "r", encoding="utf-8") as f:
+#             content = f.read()
 
-#     return gt_table
+#         # Debugging: Print the first 500 characters of the content to confirm
+#         print(f"Loaded report content (first 500 characters): {content[:500]}")
+
+#     else:
+#         print(f"Report file not found at: {report_path}")
+#         exit()  # Or handle the error as needed
+
+# except Exception as e:
+#     print(f"Error occurred: {str(e)}")
+#     exit()  # Or handle the error as needed

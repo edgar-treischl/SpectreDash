@@ -8,6 +8,10 @@ from spectredash.moduleAbout import about_ui, about_server
 from spectredash.moduleOverview import overview_ui, overview_server
 
 
+from spectredash.moduleValidation import validation_ui, validation_server 
+
+
+
 
 from pathlib import Path
 import duckdb
@@ -85,6 +89,7 @@ df = sns.load_dataset('penguins')  # Replace with your dataset name if needed
 app_ui = ui.page_navbar(
     ui.nav_panel("About", about_ui("about")),
     ui.nav_panel("Overview", overview_ui("overview")),
+     ui.nav_panel("Validation", validation_ui("validation")),
     title = ui.a(
         ui.span(ui.img(src="logo.png", height="60px", class_="me-2"), 
         "SpectreApp"),
@@ -96,8 +101,9 @@ app_ui = ui.page_navbar(
 )
 
 def app_server(input: Inputs, output: Outputs, session: Session):
-     about_server("about")
-     overview_server("overview")
+    about_server("about")
+    overview_server("overview")
+    validation_server("validation")
 
 
     # @output
