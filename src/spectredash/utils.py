@@ -26,3 +26,10 @@ def filter_and_sort_versions(dataset_name: str) -> pd.DataFrame:
     filtered_df = filtered_df.sort_values('timestamp', ascending=False)
 
     return filtered_df
+
+
+
+def datasets():
+    df = duckdb_table(table="pointers")
+    tables = df["table"].unique().tolist()
+    return tables
