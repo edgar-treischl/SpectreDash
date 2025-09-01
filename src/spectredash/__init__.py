@@ -8,7 +8,8 @@ from .moduleOverview import overview_ui, overview_server
 from .moduleValidation import validation_ui, validation_server 
 
 from .tables import table_overview, table_pointer
-#from .plots import plot_PresenceMatrixWeb
+from .plots import plot_PresenceMatrixWeb, plot_TypeMatrixWeb, plot_LabelMatrix
+
 from .utils import filter_and_sort_versions, datasets
 from .state import shared_first_choice, shared_second_choice
 
