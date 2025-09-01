@@ -92,7 +92,7 @@ app_ui = ui.page_navbar(
      ui.nav_panel("Validation", validation_ui("validation")),
     title = ui.a(
         ui.span(ui.img(src="logo.png", height="60px", class_="me-2"), 
-        "SpectreApp"),
+        "Spectre"),
     href="/",  # Replace with your actual app URL path if needed
     class_="text-decoration-none d-flex align-items-center text-body"
 ),
