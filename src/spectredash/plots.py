@@ -11,6 +11,7 @@ from textwrap import shorten
 
 
 def plot_PresenceMatrixWeb(table, skip=0, clip_date=False):
+    #import pandas as pd 
     # Step 1: Read column-level metadata in long format
     data = duckdb_table(table="columns")
     data = data[data["table"] == table]
@@ -84,8 +85,6 @@ def plot_PresenceMatrixWeb(table, skip=0, clip_date=False):
     return plot
 
 
-
-    import pandas as pd
 
 
 def plot_TypeMatrixWeb(table, skip=0, clip_date=False):
