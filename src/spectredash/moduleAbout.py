@@ -6,7 +6,7 @@ from spectredash.utils import filter_and_sort_versions, datasets
 from spectredash.getduck import duckdb_table
 from spectredash.tables import table_pointer, table_overview
 
-from spectredash.state import shared_first_choice, shared_second_choice
+from spectredash.utils import shared_first_choice, shared_second_choice
 
 @module.ui
 def about_ui():

@@ -11,7 +11,7 @@ from .tables import table_overview, table_pointer
 from .plots import plot_PresenceMatrixWeb, plot_TypeMatrixWeb, plot_LabelMatrix
 
 from .utils import filter_and_sort_versions, datasets
-from .state import shared_first_choice, shared_second_choice
+from .utils import shared_first_choice, shared_second_choice
 
 
 

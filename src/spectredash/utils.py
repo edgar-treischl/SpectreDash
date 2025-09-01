@@ -1,6 +1,11 @@
-from shiny import App, Inputs, Outputs, Session, render, ui
+#from shiny import App, Inputs, Outputs, Session, render, ui
 import pandas as pd
 from spectredash.getduck import duckdb_table 
+from shiny import reactive
+
+# Shared reactive values
+shared_first_choice = reactive.Value(None)
+shared_second_choice = reactive.Value(None)
 
 def filter_and_sort_versions(dataset_name: str) -> pd.DataFrame:
     """
