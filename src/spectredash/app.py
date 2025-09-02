@@ -1,3 +1,4 @@
+# ---- Imports ----
 from shiny import App, Inputs, Outputs, Session, ui
 from pathlib import Path
 import emoji
@@ -9,13 +10,12 @@ from spectredash.moduleValidation import validation_ui, validation_server
 from spectredash.moduleVariables import variables_ui, variables_server
 from spectredash.moduleClass import class_ui, class_server
 from spectredash.moduleLabels import labels_ui, labels_server
+from spectredash.moduleDiff import diff_ui, diff_server
 
 
 
 
-
-
-# app ui ##########
+# ---- App UI ----
 app_ui = ui.page_navbar(
     ui.nav_panel("About", about_ui("about")),
     ui.nav_panel("Overview", overview_ui("overview")),
@@ -23,6 +23,7 @@ app_ui = ui.page_navbar(
     ui.nav_panel("Variables", variables_ui("variables")),
     ui.nav_panel("Classes", class_ui("class")),
     ui.nav_panel("Labels", labels_ui("labels")),
+    ui.nav_panel("Diff", diff_ui("diff")),
     title = ui.a(
         ui.span(ui.img(src="logo.png", height="60px", class_="me-2"), 
         "Spectre"),
@@ -42,6 +43,7 @@ def app_server(input: Inputs, output: Outputs, session: Session):
     variables_server("variables")
     class_server("class")
     labels_server("labels")
+    diff_server("diff")
 
 
 www_dir = Path(__file__).parent / "www"
