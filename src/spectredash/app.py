@@ -11,6 +11,7 @@ from spectredash.moduleVariables import variables_ui, variables_server
 from spectredash.moduleClass import class_ui, class_server
 from spectredash.moduleLabels import labels_ui, labels_server
 from spectredash.moduleDiff import diff_ui, diff_server
+from spectredash.modulePipe import pipe_ui, pipe_server
 
 
 
@@ -23,6 +24,7 @@ app_ui = ui.page_navbar(
     ui.nav_panel("Variables", variables_ui("variables")),
     ui.nav_panel("Classes", class_ui("class")),
     ui.nav_panel("Labels", labels_ui("labels")),
+     ui.nav_panel("Pipe", pipe_ui("pipe")),
     ui.nav_panel("Diff", diff_ui("diff")),
     title = ui.a(
         ui.span(ui.img(src="logo.png", height="60px", class_="me-2"), 
@@ -43,6 +45,7 @@ def app_server(input: Inputs, output: Outputs, session: Session):
     variables_server("variables")
     class_server("class")
     labels_server("labels")
+    pipe_server("pipe")
     diff_server("diff")
 
 

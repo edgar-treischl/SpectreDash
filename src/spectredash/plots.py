@@ -1,13 +1,21 @@
 # ---- Imports ----
+import re
+import numpy as np
 import pandas as pd
+from textwrap import shorten
+
 from plotnine import (
-    ggplot, aes, geom_tile, geom_text, scale_fill_brewer, scale_fill_manual, labs, theme_minimal,
-    theme, element_text, scale_x_discrete, coord_cartesian
+    ggplot, aes, geom_tile, geom_text, geom_point, geom_line,
+    scale_fill_brewer, scale_fill_manual, scale_fill_gradient,
+    scale_x_discrete, coord_cartesian,
+    labs, theme_minimal, theme,
+    element_text, element_blank
 )
 
-
 from spectredash.getduck import duckdb_table
-from textwrap import shorten
+
+
+
 
 
 # ---- plot_PresenceMatrixWeb ----
@@ -212,6 +220,65 @@ def plot_LabelMatrix(table: str) -> ggplot:
             legend_position="bottom"
         )
         + scale_x_discrete(labels=lambda labels: [truncate_text(str(label), 14) for label in labels])
+    )
+
+    return plot
+
+
+
+
+
+def plot_pipe():
+    # Read the table from duckdb
+    data = duckdb_table(table="pipes")
+    
+    # Filter rows for the specified table
+    #data = data[data["table"] == table]
+
+    if not isinstance(data, pd.DataFrame):
+        raise ValueError("The input is not a data frame.")
+
+    # Expand columns so each row is one (column, validation_type) pair
+    # Split the 'columns' column by comma + optional spaces
+    data['cols'] = data['columns'].apply(lambda x: re.split(r',\s*', x))
+    columns_expanded = data.explode('cols').reset_index(drop=True)
+
+    # Create wide validation matrix
+    distinct = (
+        columns_expanded[['cols', 'validation_type']]
+        .drop_duplicates()
+        .assign(count=1)
+    )
+
+    validation_matrix = distinct.pivot(index='cols', columns='validation_type', values='count')
+
+    # Convert to long format
+    validation_long = validation_matrix.reset_index().melt(id_vars='cols', var_name='validation_type', value_name='count')
+
+    # Shorten long column names for better visualization
+    def shorten_label(x, max_len=9):
+        if pd.isna(x):
+            return x
+        return x if len(x) <= max_len else x[:max_len] + "..."
+
+    validation_long['cols_short'] = validation_long['cols'].apply(shorten_label)
+
+    # Replace NA counts with 0 for plotting
+    validation_long['count_plot'] = validation_long['count'].fillna(0)
+
+    # Plot heatmap (points + lines)
+    plot = (
+        ggplot(validation_long, aes(x='validation_type', y='cols_short', fill='count_plot'))
+        + geom_line(aes(group='cols_short'), size=0.5, color='lightgray')
+        + geom_point(size=4, shape='o')
+        + scale_fill_gradient(low="white", high="#31572c", na_value="white")
+        + labs(x='', y='')
+        + theme_minimal(base_size=14)
+        + theme(
+            legend_position='none',
+            axis_text_x=element_text(angle=45, ha='right'),
+            panel_grid=element_blank()
+        )
     )
 
     return plot

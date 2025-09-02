@@ -9,6 +9,7 @@ from .moduleValidation import validation_ui, validation_server
 from .moduleVariables import variables_ui, variables_server
 from .moduleClass import class_ui, class_server
 from .moduleLabels import labels_ui, labels_server
+from .modulePipe import pipe_ui, pipe_server
 from .getgit import get_diff, visualize_diff
 
 
