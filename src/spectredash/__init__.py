@@ -8,6 +8,8 @@ from .moduleOverview import overview_ui, overview_server
 from .moduleValidation import validation_ui, validation_server 
 from .moduleVariables import variables_ui, variables_server
 from .moduleClass import class_ui, class_server
+from .moduleLabels import labels_ui, labels_server
+
 
 from .tables import table_overview, table_pointer
 from .plots import plot_PresenceMatrixWeb, plot_TypeMatrixWeb, plot_LabelMatrix

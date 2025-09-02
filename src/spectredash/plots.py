@@ -63,6 +63,12 @@ def plot_PresenceMatrixWeb(table, skip=0, clip_date=False):
     col_order = presence_data.sort_values("column_name", ascending=False)["column_name"].unique()
     presence_data["column_name"] = pd.Categorical(presence_data["column_name"], categories=col_order, ordered=True)
 
+    # presence_data['version'] = presence_data['version'].apply(
+    # lambda x: x[:13] + '...' if len(x) > 13 else x
+    # )
+
+
+
     # Step 5: Plot
     plot = (
         ggplot(presence_data, aes(x="version", y="column_name", fill="present"))
@@ -75,7 +81,7 @@ def plot_PresenceMatrixWeb(table, skip=0, clip_date=False):
         + labs(x="Version", y="Column")
         + theme_minimal(base_size=16)
         + theme(
-            axis_text_x=element_text(size=14, angle=45, ha="right"),
+            axis_text_x=element_text(size=14, angle=0, ha="center"),
             axis_text_y=element_text(size=14),
             aspect_ratio=0.8
         )
@@ -139,13 +145,13 @@ def plot_TypeMatrixWeb(table, skip=0, clip_date=False):
     plot = (
         ggplot(type_data, aes(x="version", y="column_name", fill="type"))
         + geom_tile(color="white", alpha=0.95)
-        + scale_fill_brewer(type='qual', palette='Set2', na_value="grey50", name="Type")
+        + scale_fill_brewer(type='qual', palette='Set1', na_value="grey50", name="Type")
         #+ scale_fill_viridis_d(name="Type", na_value="grey50")
         + labs(x="Version", y="Column")
         + theme_minimal(base_size=18)
         + theme(
-            axis_text_x=element_text(size=14, angle=45, ha="right"),
-            axis_text_y=element_text(size=16),
+            axis_text_x=element_text(size=14, angle=0, ha="right"),
+            axis_text_y=element_text(size=14),
             aspect_ratio=0.8
         )
         + coord_cartesian(expand=True)

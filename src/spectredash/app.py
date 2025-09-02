@@ -1,15 +1,15 @@
-from shiny import App, Inputs, Outputs, Session, reactive, render, ui
+from shiny import App, Inputs, Outputs, Session, ui
 from pathlib import Path
 import emoji
 
-from spectredash.getduck import duckdb_table
-from spectredash.tables import table_overview, table_pointer
-from spectredash.utils import filter_and_sort_versions
+
 from spectredash.moduleAbout import about_ui, about_server
 from spectredash.moduleOverview import overview_ui, overview_server
 from spectredash.moduleValidation import validation_ui, validation_server
 from spectredash.moduleVariables import variables_ui, variables_server
 from spectredash.moduleClass import class_ui, class_server
+from spectredash.moduleLabels import labels_ui, labels_server
+
 
 
 
@@ -22,6 +22,7 @@ app_ui = ui.page_navbar(
     ui.nav_panel("Validation", validation_ui("validation")),
     ui.nav_panel("Variables", variables_ui("variables")),
     ui.nav_panel("Classes", class_ui("class")),
+    ui.nav_panel("Labels", labels_ui("labels")),
     title = ui.a(
         ui.span(ui.img(src="logo.png", height="60px", class_="me-2"), 
         "Spectre"),
@@ -40,6 +41,7 @@ def app_server(input: Inputs, output: Outputs, session: Session):
     validation_server("validation")
     variables_server("variables")
     class_server("class")
+    labels_server("labels")
 
 
 www_dir = Path(__file__).parent / "www"
