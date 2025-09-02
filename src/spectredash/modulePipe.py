@@ -9,7 +9,7 @@ from spectredash.utils import shared_first_choice
 def pipe_ui():
     return ui.navset_card_underline(
         ui.nav_panel(
-            ui.h2(f"{emoji.emojize(':school:')} Pipe Plot", class_="m-0"),
+            ui.h4(f"{emoji.emojize(':gear:')} Pipe", class_="m-0"),
             # Output ID here should match the output function below
             ui.output_ui("pipe_plot_ui")
         )

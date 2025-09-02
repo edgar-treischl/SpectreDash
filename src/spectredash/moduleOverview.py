@@ -11,7 +11,7 @@ from spectredash.utils import shared_first_choice, shared_second_choice
 def overview_ui():
     return ui.navset_card_underline(
         ui.nav_panel(
-            ui.h2(f"{emoji.emojize(':hourglass_done:')} Overview data", class_="m-0"),
+            ui.h4(f"{emoji.emojize(':hourglass_done:')} Overview", class_="m-0"),
             ui.output_ui("table_html2"),
         )
     )

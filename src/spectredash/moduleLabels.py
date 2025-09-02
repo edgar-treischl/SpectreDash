@@ -9,11 +9,18 @@ from spectredash.utils import shared_first_choice
 def labels_ui():
     return ui.navset_card_underline(
         ui.nav_panel(
-            ui.h2(f"{emoji.emojize(':school:')} Labels Plot", class_="m-0"),
-            # Output ID here should match the output function below
-            ui.output_ui("labels_plot_ui")  
+            ui.div(
+                {"class": "mb-3"},  # Margin bottom for spacing
+                ui.h4(f"{emoji.emojize(':label:')} Labels", class_="m-0"),
+                ui.p(
+                    "Which labels are included? Did they change?",
+                    class_="text-muted small mb-0"
+                )
+            ),
+            ui.output_ui("labels_plot_ui")
         )
     )
+
 
 
 @module.server

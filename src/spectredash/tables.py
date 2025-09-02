@@ -40,10 +40,12 @@ def table_overview(df: pd.DataFrame) -> GT:
 
     # Select and rename columns for display with emojis
     df_display = df_latest[['table', 'version', 'status', 'html_link', 'validated_by']].copy()
+    
+    #deleted {emoji.emojize(':compass:')}
     df_display.columns = [
-        f"{emoji.emojize(':bar_chart:')} Table",
-        f"{emoji.emojize(':compass:')} Version",
-        f"{emoji.emojize(':check_mark_button:')} Status",
+        f"Table",
+        f"Version",
+        f"Status",
         f"{emoji.emojize(':link:')} Link",
         f"{emoji.emojize(':detective:')} Agent"
     ]

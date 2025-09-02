@@ -32,7 +32,7 @@ app_ui = ui.page_navbar(
     href="/",  # Replace with your actual app URL path if needed
     class_="text-decoration-none d-flex align-items-center text-body"
 ),
-    footer = ui.p(ui.tags.a(f"Go to: {emoji.emojize(':top_hat:')}", href="https://gitlab.lrz.de/edgar-treischl/OddJob", target="_blank")
+    footer = ui.p(ui.tags.a(f"Visit OddJob {emoji.emojize(':top_hat:')}", href="https://gitlab.lrz.de/edgar-treischl/OddJob", target="_blank")
 )
 )
 

@@ -9,7 +9,7 @@ from spectredash.utils import shared_first_choice
 def class_ui():
     return ui.navset_card_underline(
         ui.nav_panel(
-            ui.h2(f"{emoji.emojize(':school:')} Class Plot", class_="m-0"),
+            ui.h4(f"{emoji.emojize(':school:')} Classes", class_="m-0"),
             # Output ID here should match the output function below
             ui.output_ui("class_plot_ui")  
         )

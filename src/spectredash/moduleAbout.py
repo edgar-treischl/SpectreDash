@@ -12,10 +12,10 @@ from spectredash.utils import shared_first_choice, shared_second_choice
 def about_ui():
     return ui.navset_card_underline(
         ui.nav_panel(
-            ui.h2(f"{emoji.emojize(':water_pistol:')} About the app", class_="m-0"),
+            ui.h4(f"{emoji.emojize(':water_pistol:')} About the app", class_="m-0"),
             ui.row(
                 ui.column(
-                    5,
+                    6,
                     ui.div(
                         ui.p(
                             "Spectre silently infiltrates the OddJob repository, extracting validation results "
@@ -32,13 +32,12 @@ def about_ui():
                             ui.tags.li(ui.strong("Label Matrix:"), " Shows which labels the data includes."),
                         ),
                         ui.p(
-                            f"Created with {emoji.emojize(':red_heart:')}, shiny, and ",
-                            ui.tags.img(src="octo.png", height="32px", class_="me-2")
+                            f"Created with {emoji.emojize(':red_heart:')}, shiny, and {emoji.emojize(':octopus:')}."
                         )
                     ),
                 ),
                 ui.column(
-                    7,
+                    6,
                     ui.h4("Select the intel for:", class_="text-muted small"),
                     ui.row(
                         ui.column(

@@ -12,8 +12,8 @@ def diff_ui():
         ui.nav_panel(
             ui.div(
                 {"class": "d-flex justify-content-between align-items-center mb-3"},
-                ui.h2(
-                    f"{emoji.emojize(':magnifying_glass_tilted_left:')} Git Diff",
+                ui.h4(
+                    f"{emoji.emojize(':octopus:')} Git Diff",
                     class_="m-0"
                 ),
                 ui.input_action_button(
