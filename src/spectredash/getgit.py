@@ -10,9 +10,26 @@ import webbrowser
 import tempfile
 from typing import List
 
+# Suppress verbose HTTP logs in console (especially for Shiny apps)
+logging.getLogger("urllib3").setLevel(logging.WARNING)
+logging.getLogger("gitlab").setLevel(logging.WARNING)
+
 
 
 def connect_gitlab():
+    """
+    Establish a connection to the GitLab API using a personal access token.
+
+    This function loads the GitLab token from a `.env` file (environment variable `GITLAB_API_TOKEN`)
+    and returns an authenticated `gitlab.Gitlab` client object.
+
+    Raises:
+        RuntimeError: If the token is missing or authentication fails.
+
+    Returns:
+        gitlab.Gitlab: An authenticated GitLab client instance.
+    """
+
     load_dotenv()  # Load token from .env
     token = os.getenv("GITLAB_API_TOKEN")
     if not token:
@@ -33,12 +50,27 @@ def connect_gitlab():
 
 
 
-
-# Suppress verbose HTTP logs in console (especially for Shiny apps)
-logging.getLogger("urllib3").setLevel(logging.WARNING)
-logging.getLogger("gitlab").setLevel(logging.WARNING)
-
 def get_diff(table="penguins"):
+    """
+    Retrieve the latest Git diff for a specific YAML file in the GitLab repository.
+
+    This function connects to GitLab, filters commits affecting the file 
+    `{table}/pipe_{table}.yml`, and returns the diff from the latest matching commit.
+
+    The function expects commits with messages in the format:
+    `spectre a/m pipe_<table>.yml`.
+
+    Args:
+        table (str): The name of the table/file to check. Defaults to "penguins".
+
+    Returns:
+        list[str]: A list of lines in the diff output.
+
+    Raises:
+        RuntimeError: If the connection, commit retrieval, or diff operation fails.
+        UserWarning: If no matching commits or diffs are found.
+    """
+
     # Compose file path and expected commit message pattern
     oddjob_path = f"{table}/pipe_{table}.yml"
     commit_message = f"spectre a/m pipe_{table}.yml"
@@ -47,7 +79,7 @@ def get_diff(table="penguins"):
     # Load .env file
     load_dotenv()
 
-    # ✅ Connect securely using your dedicated function
+    # Connect securely using your dedicated function
     gl = connect_gitlab()
 
     try:
@@ -105,6 +137,32 @@ def get_diff(table="penguins"):
 
 
 def visualize_diff(diff: List[str], browse: bool = True) -> str:
+    """
+    Generate a syntax-highlighted HTML visualization of a Git diff.
+
+    This function takes a line-by-line Git diff (as a list of strings) and renders it 
+    into formatted HTML, including line numbers, color-coded changes (additions, removals, context),
+    and basic styling for readability. It is useful for embedding diffs in dashboards, reports,
+    or web-based applications like Shiny for Python.
+
+    Args:
+        diff (List[str]): A list of lines from a Git diff (e.g., output from `commit.diff()`).
+        browse (bool): If True, attempts to render and preview the HTML in a browser.
+                       If False, returns the raw HTML string for embedding. Defaults to True.
+
+    Returns:
+        str: A complete HTML string representing the formatted diff.
+
+    Notes:
+        - Additions are highlighted in green, deletions in red (with strikethrough),
+          and unchanged lines in grey.
+        - Chunk headers (`@@ -old,+new @@`) are styled separately.
+        - Designed for embedding in `<div>` or rendering with `htmltools.HTML()` in Shiny apps.
+
+    Example:
+        >>> html_str = visualize_diff(["@@ -1,3 +1,3 @@", "-old line", "+new line"], browse=False)
+        >>> print(html_str)
+    """
     html_diff_lines = []
 
     old_line_num = 0
