@@ -1,3 +1,4 @@
+# ---- Imports ----
 import pandas as pd
 from plotnine import (
     ggplot, aes, geom_tile, geom_text, scale_fill_brewer, scale_fill_manual, labs, theme_minimal,
@@ -9,9 +10,8 @@ from spectredash.getduck import duckdb_table
 from textwrap import shorten
 
 
-
+# ---- plot_PresenceMatrixWeb ----
 def plot_PresenceMatrixWeb(table, skip=0, clip_date=False):
-    #import pandas as pd 
     # Step 1: Read column-level metadata in long format
     data = duckdb_table(table="columns")
     data = data[data["table"] == table]
@@ -91,8 +91,7 @@ def plot_PresenceMatrixWeb(table, skip=0, clip_date=False):
     return plot
 
 
-
-
+# ---- plot_TypeMatrixWeb ----
 def plot_TypeMatrixWeb(table, skip=0, clip_date=False):
     # Step 1: Read column-level metadata in long format
     data = duckdb_table(table="columns")
@@ -161,12 +160,13 @@ def plot_TypeMatrixWeb(table, skip=0, clip_date=False):
 
 
 
-# Bla bla
 
+# ---- Helper ----
 def truncate_text(s, maxlen=20):
     return s if len(s) <= maxlen else s[:maxlen - 1] + "…"
 
-def plot_LabelMatrix(table):
+# ---- plot_LabelMatrix ----
+def plot_LabelMatrix(table: str) -> ggplot:
     # Step 1: Load data
     data = duckdb_table(table="columns")
     data = data[data["table"] == table]

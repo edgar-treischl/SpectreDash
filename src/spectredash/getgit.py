@@ -142,8 +142,7 @@ def visualize_diff(diff: List[str], browse: bool = True) -> str:
 
     This function takes a line-by-line Git diff (as a list of strings) and renders it 
     into formatted HTML, including line numbers, color-coded changes (additions, removals, context),
-    and basic styling for readability. It is useful for embedding diffs in dashboards, reports,
-    or web-based applications like Shiny for Python.
+    and basic styling for readability.
 
     Args:
         diff (List[str]): A list of lines from a Git diff (e.g., output from `commit.diff()`).

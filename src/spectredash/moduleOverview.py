@@ -13,12 +13,6 @@ def overview_ui():
         ui.nav_panel(
             ui.h2(f"{emoji.emojize(':hourglass_done:')} Overview data", class_="m-0"),
             ui.output_ui("table_html2"),
-            # ui.output_plot("hist"),  # optional additional outputs
-        ),
-        footer=ui.input_select(
-            "vari",
-            "Select variable",
-            choices=["bill_length_mm", "body_mass_g"]
         )
     )
 

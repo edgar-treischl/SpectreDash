@@ -1,8 +1,10 @@
+import os
 import pandas as pd
 import emoji
 import os
 from great_tables import GT, md, pct, google_font, style, loc
 from spectredash.getduck import duckdb_table
+
 
 def table_overview(df: pd.DataFrame) -> GT:
     """
@@ -91,11 +93,6 @@ def table_pointer(pointer_name="penguins", date="2025-08-20T13-52-15"):
         >>> table = table_pointer("penguins", "2025-08-20T13-52-15")
         >>> table.show()  # In Jupyter or render in Shiny via .as_raw_html()
     """
-    import emoji
-    import os
-    from great_tables import GT, md, style, loc, pct, google_font
-    import pandas as pd
-    from spectredash.getduck import duckdb_table
 
     # Load data from DuckDB
     pointers_df = duckdb_table(table="pointers")
