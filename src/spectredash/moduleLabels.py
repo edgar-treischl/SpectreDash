@@ -10,10 +10,10 @@ def labels_ui():
     return ui.navset_card_underline(
         ui.nav_panel(
             ui.div(
-                {"class": "mb-3"},  # Margin bottom for spacing
+                {"class": "mb-3"}, 
                 ui.h4(f"{emoji.emojize(':label:')} Labels", class_="m-0"),
                 ui.p(
-                    "Which labels are included? Did they change?",
+                    "Which categories and labels does the data include?",
                     class_="text-muted small mb-0"
                 )
             ),

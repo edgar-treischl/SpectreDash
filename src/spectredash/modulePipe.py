@@ -9,8 +9,14 @@ from spectredash.utils import shared_first_choice
 def pipe_ui():
     return ui.navset_card_underline(
         ui.nav_panel(
-            ui.h4(f"{emoji.emojize(':gear:')} Pipe", class_="m-0"),
-            # Output ID here should match the output function below
+            ui.div(
+                {"class": "mb-3"}, 
+                ui.h4(f"{emoji.emojize(':label:')} Pipe", class_="m-0"),
+                ui.p(
+                    "What does the validation pipe test?",
+                    class_="text-muted small mb-0"
+                )
+            ),
             ui.output_ui("pipe_plot_ui")
         )
     )

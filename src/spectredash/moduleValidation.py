@@ -16,7 +16,14 @@ from spectredash.utils import shared_first_choice, shared_second_choice
 def validation_ui():
     return ui.navset_card_underline(
         ui.nav_panel(
-            ui.h4(f"{emoji.emojize(':fire_extinguisher:')} Validation Report", class_="m-0"),
+            ui.div(
+                {"class": "mb-3"}, 
+                ui.h4(f"{emoji.emojize(':fire_extinguisher:')} Validation Report", class_="m-0"),
+                ui.p(
+                    "The validation report from pointblank/octopussy.",
+                    class_="text-muted small mb-0"
+                )
+            ),  
             ui.output_ui("validation_report_ui")
         )
     )

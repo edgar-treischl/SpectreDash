@@ -23,13 +23,16 @@ def about_ui():
                             "a rich meta data for a complete audit trail."
                         ),
                         ui.p("The table on the right side gives an overview of the most recent validation runs. Pick a table name (and version) and SpectreApp visualizes key insights."),
-                        ui.p("Furthermore, this app includes:"),
+                        ui.p("This app includes:"),
                         ui.tags.ul(
-                            ui.tags.li(ui.strong("Overview:"), " An overview based on the pointer file."),
-                            ui.tags.li(ui.strong("Validation:"), " The validation report created with Octopussy."),
-                            ui.tags.li(ui.strong("Variable Matrix:"), " Displays which variables the data includes."),
-                            ui.tags.li(ui.strong("Class Matrix:"), " Depicts which classes the data includes."),
-                            ui.tags.li(ui.strong("Label Matrix:"), " Shows which labels the data includes."),
+                            ui.tags.li(ui.strong("Overview:"), " An overview about the data."),
+                            ui.tags.li(ui.strong("Pipe:"), " What does the validation pipe, really?"),
+                            ui.tags.li(ui.strong("Validation:"), " The validation report."),
+                            ui.tags.li(ui.strong("Variables:"), " Displays which variables/columns the data includes."),
+                            ui.tags.li(ui.strong("Classes:"), " Depicts classes/categories."),
+                            ui.tags.li(ui.strong("Labels:"), " Shows which labels the data includes."),
+                            ui.tags.li(ui.strong("Diff:"), " Fetch the latest 'git diff'."),
+
                         ),
                         ui.p(
                             f"Created with {emoji.emojize(':red_heart:')}, shiny, and {emoji.emojize(':octopus:')}."
@@ -38,7 +41,6 @@ def about_ui():
                 ),
                 ui.column(
                     6,
-                    ui.h4("Select the intel for:", class_="text-muted small"),
                     ui.row(
                         ui.column(
                             6,
@@ -52,12 +54,12 @@ def about_ui():
                         ui.column(
                             6,
                             ui.output_ui("dependent_select"),
-                        ),
-                        ui.p("Monitoring data made simple with Spectre.", class_="text-muted small")
+                        )
                     ),
                     ui.br(),
                     #ui.hr(),
-                    ui.output_ui("table_html")
+                    ui.output_ui("table_html"),
+                    ui.p("Monitoring data made simple with Spectre.", class_="text-muted small")
                 )
             )
         )

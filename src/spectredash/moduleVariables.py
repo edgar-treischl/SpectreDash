@@ -9,8 +9,15 @@ from spectredash.utils import shared_first_choice
 def variables_ui():
     return ui.navset_card_underline(
         ui.nav_panel(
-            ui.h4(f"{emoji.emojize(':bullseye:')} Variables", class_="m-0"),
-            ui.output_ui("presence_plot_ui")  # <-- corrected: should match output ID in `presence_plot_ui()`
+            ui.div(
+                {"class": "mb-3"}, 
+                ui.h4(f"{emoji.emojize(':bullseye:')} Variables", class_="m-0"),
+                ui.p(
+                    "Variables on the spot. Are they (still) present?",
+                    class_="text-muted small mb-0"
+                )
+            ), 
+            ui.output_ui("presence_plot_ui") 
         )
     )
 

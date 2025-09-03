@@ -11,15 +11,19 @@ def diff_ui():
     return ui.navset_card_underline(
         ui.nav_panel(
             ui.div(
-                {"class": "d-flex justify-content-between align-items-center mb-3"},
-                ui.h4(
-                    f"{emoji.emojize(':octopus:')} Git Diff",
-                    class_="m-0"
+                {"class": "mb-3"},
+                ui.div(
+                    {"class": "d-flex justify-content-between align-items-center"},
+                    ui.h4(f"{emoji.emojize(':octopus:')} Git Diff", class_="m-0"),
+                    ui.input_action_button(
+                        "fetch_diff",
+                        "Fetch",
+                        class_="btn btn-sm btn-outline-primary ms-3"
+                    )
                 ),
-                ui.input_action_button(
-                    "fetch_diff",
-                    "Fetch",
-                    class_="btn btn-sm btn-outline-primary ms-3"  # add left margin (Bootstrap `ms-3`)
+                ui.p(
+                    "Last goodie. Fetch the latest diff of the table.",
+                    class_="text-muted small mb-0 mt-2"
                 )
             ),
             ui.output_ui("diff_or_message")
@@ -39,7 +43,7 @@ def diff_server(input, output, session):
 
     # Observe button clicks using reactive.event
     @reactive.Effect
-    @reactive.event(input.fetch_diff)  # Only trigger when the button is clicked
+    @reactive.event(input.fetch_diff)
     def _():
         try:
             table_value = shared_first_choice.get()
@@ -78,7 +82,7 @@ def diff_server(input, output, session):
             )
 
         if not diff_lines_val.get():
-            return ui.p("Click 'Fetch' to load the latest diff.")
+            return ui.p("Click 'Fetch' to load.")
 
         html_content = diff_html_content()
         if html_content is None:
