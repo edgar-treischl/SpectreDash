@@ -40,4 +40,5 @@ COPY --from=builder /app/src ./src/
 
 EXPOSE 8000
 
-CMD ["shiny", "run", "--reload", "--port", "8000", "spectredash.app"]
+CMD ["shiny", "run", "--reload", "--host", "0.0.0.0", "--port", "8000", "spectredash.app"]
+
