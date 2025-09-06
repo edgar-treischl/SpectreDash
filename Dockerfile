@@ -1,5 +1,4 @@
-# ----------- STAGE 1: Build -----------
-FROM python:3.12-slim AS builder
+FROM python:3.12-slim-bullseye AS builder
 
 ENV POETRY_VERSION=1.8.2 \
     PYTHONDONTWRITEBYTECODE=1 \
@@ -7,26 +6,34 @@ ENV POETRY_VERSION=1.8.2 \
 
 WORKDIR /app
 
+# Install necessary OS dependencies for building Python extensions
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    curl build-essential \
-  && curl -sSL https://install.python-poetry.org | python3 - \
+    build-essential libffi-dev libssl-dev pkg-config \
   && rm -rf /var/lib/apt/lists/*
 
+# Install Poetry (v1.x)
+RUN pip install "poetry==$POETRY_VERSION"
+
+# For safety, ensure Poetry is on the PATH
 ENV PATH="/root/.local/bin:$PATH"
 
+# Copy only dependency files for better layer caching
 COPY pyproject.toml poetry.lock ./
-RUN poetry config virtualenvs.create false \
-  && poetry install --no-dev --only main
 
+RUN poetry config virtualenvs.create false \
+    && poetry install --no-dev --no-interaction --no-ansi
+
+# Copy your application code
 COPY src/ ./src/
 
-# ----------- STAGE 2: Runtime -----------
-FROM python:3.12-slim
+# -------- Runtime Stage --------
+FROM python:3.12-slim-bullseye
 
 WORKDIR /app
 
+# Copy installed dependencies
 COPY --from=builder /usr/local /usr/local
-COPY --from=builder /app/src ./src
+COPY --from=builder /app/src ./src/
 
 EXPOSE 8000
 
