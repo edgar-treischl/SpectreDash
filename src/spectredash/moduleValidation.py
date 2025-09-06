@@ -21,13 +21,13 @@ def validation_ui():
                 ui.column(
                     3,
                     ui.card(
-                        ui.p("What does the validation report show?"),
+                        ui.p("The validation report provides a detailed summary of all checks performed by Pointblank."),
                         ui.tags.ul(
-                            ui.tags.li("Each section of the report corresponds to a validation step."),
-                            ui.tags.li("It highlights passed, failed, and warning-level checks."),
-                            ui.tags.li("Use the report to assess data quality and validation coverage.")
-                        ),
-                        ui.p({"class": "text-muted small"}, "Scroll or zoom the report if it doesn’t fit your screen.")
+                            ui.tags.li("Each section represents a specific validation step applied to the dataset."),
+                            ui.tags.li("Results are color-coded to indicate passed, failed, or warning-level checks."),
+                            ui.tags.li("Use the report to identify issues, verify expectations, and ensure data integrity.")
+                            ),
+                            ui.p({"class": "text-muted small"}, "Scroll horizontally or zoom out if the report doesn't fit your screen.")
                     )
                 ),
                 ui.column(

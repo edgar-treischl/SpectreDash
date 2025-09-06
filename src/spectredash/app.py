@@ -44,23 +44,27 @@ app_ui = ui.page_navbar(
             "style": "text-align: center; padding: 10px; font-size: 0.9em; color: #666;"
         },
         ui.HTML("Created with "),
-        emoji.emojize(":red_heart:"),
+        ui.tags.a(
+            emoji.emojize(":top_hat:"),
+            href="https://gitlab.lrz.de/edgar-treischl/OddJob",
+            target="_blank",
+            style="color: #666; text-decoration: underline;"
+        ),
         ui.HTML(", shiny, and "),
-        emoji.emojize(":octopus:"),
+        ui.tags.a(
+            emoji.emojize(":octopus:"),
+            href="https://gitlab.lrz.de/edgar-treischl/octopussy",
+            target="_blank",
+            style="color: #666; text-decoration: underline;"
+        ),
         ui.HTML(" | By: "),
         ui.tags.a(
             "Edgar Treischl",
             href="https://edgar-treischl.de",
             target="_blank",
             style="color: #666; text-decoration: underline;"
-        ),
-        ui.HTML(" | "),
-        ui.tags.a(
-            "Visit GitLab",
-            href="https://gitlab.lrz.de/edgar-treischl/ReportMasterApp",
-            target="_blank",
-            style="color: #666; text-decoration: underline;"
-        ),
+        )
+        #ui.HTML(" | "),
     )
 )
 

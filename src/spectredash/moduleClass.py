@@ -12,7 +12,7 @@ def class_ui():
             ui.h4(f"{emoji.emojize(':school:')} Classes", class_="m-0"),
             ui.row(
                 ui.column(
-                    4,
+                    3,
                     ui.card(
                         ui.p("This panel shows the distribution of classes (levels) within factor-like variables across dataset versions."),
                         ui.tags.ul(
@@ -24,7 +24,7 @@ def class_ui():
                     )
                 ),
                 ui.column(
-                    8,
+                    9,
                     ui.card(
                         ui.div(
                             {"style": "overflow-x: auto"},

@@ -12,7 +12,7 @@ def labels_ui():
             ui.h4(f"{emoji.emojize(':label:')} Labels", class_="m-0"),
             ui.row(
                 ui.column(
-                    4,
+                    3,
                     ui.card(
                         ui.p("This panel shows the labels or category identifiers present in the dataset."),
                         ui.tags.ul(
@@ -24,7 +24,7 @@ def labels_ui():
                     )
                 ),
                 ui.column(
-                    8,
+                    9,
                     ui.card(
                         ui.div(
                             {"style": "overflow-x: auto"},

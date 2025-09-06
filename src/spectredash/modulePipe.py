@@ -18,7 +18,7 @@ def pipe_ui():
             ui.h4(f"{emoji.emojize(':label:')} Pipeline Overview", class_="m-0"),  
             ui.row(
                 ui.column(
-                    4,
+                    3,
                     ui.card(
                         ui.p("What does the pipe test? The chart on the right visualizes the validation pipeline extracted from Octopussy."),
                         ui.tags.ul(
@@ -29,7 +29,7 @@ def pipe_ui():
                     )
                 ),
                 ui.column(
-                    8,
+                    9,
                     ui.card(
                         ui.div(
                             {"style": "overflow-x: auto"},

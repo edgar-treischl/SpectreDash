@@ -12,7 +12,7 @@ def variables_ui():
             ui.h4(f"{emoji.emojize(':bullseye:')} Variables", class_="m-0"),
             ui.row(
                 ui.column(
-                    4,
+                    3,
                     ui.card(
                         ui.p("Which variables are included in the data? This view helps compare column presence across different dataset versions."),
                         ui.tags.ul(
@@ -24,7 +24,7 @@ def variables_ui():
                     )
                 ),
                 ui.column(
-                    8,
+                    9,
                     ui.card(
                         ui.div(
                             {"style": "overflow-x: auto"},
