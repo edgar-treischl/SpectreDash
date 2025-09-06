@@ -1,16 +1,20 @@
-[tool.poetry]
+[project]
 name = "spectredash"
 version = "0.1.0"
 description = "Experimental dashboard for spectral data"
-authors = ["edgar.treischl <edgar.treischl@isb.bayern.de>"]
 readme = "README.md"
-packages = [{ include = "spectredash", from = "src" }]
+authors = [
+  { name = "edgar.treischl", email = "edgar.treischl@isb.bayern.de" }
+]
+requires-python = ">=3.12,<4.0"
+dependencies = [
+    "numpy>=1.26.0,<2.0",
+    "shiny>=1.4.0,<2.0",
+    "duckdb>=1.3.2,<2.0"
+]
 
-[tool.poetry.dependencies]
-python = "^3.12"
-numpy = "^1.26.0"
-shiny = "^1.4.0"
-duckdb = "^1.3.2"
+[tool.poetry]
+packages = [{ include = "spectredash", from = "src" }]
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]

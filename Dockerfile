@@ -1,4 +1,4 @@
-# python = ">=3.12"
+# Base Python
 FROM python:3.12-slim-bullseye AS builder
 
 ENV POETRY_VERSION=1.8.2 \
