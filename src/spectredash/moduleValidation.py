@@ -16,15 +16,30 @@ from spectredash.utils import shared_first_choice, shared_second_choice
 def validation_ui():
     return ui.navset_card_underline(
         ui.nav_panel(
-            ui.div(
-                {"class": "mb-3"}, 
-                ui.h4(f"{emoji.emojize(':fire_extinguisher:')} Validation Report", class_="m-0"),
-                ui.p(
-                    "The validation report from pointblank/octopussy.",
-                    class_="text-muted small mb-0"
+            ui.h4(f"{emoji.emojize(':fire_extinguisher:')} Validation Report", class_="m-0"),
+            ui.row(
+                ui.column(
+                    3,
+                    ui.card(
+                        ui.p("What does the validation report show?"),
+                        ui.tags.ul(
+                            ui.tags.li("Each section of the report corresponds to a validation step."),
+                            ui.tags.li("It highlights passed, failed, and warning-level checks."),
+                            ui.tags.li("Use the report to assess data quality and validation coverage.")
+                        ),
+                        ui.p({"class": "text-muted small"}, "Scroll or zoom the report if it doesn’t fit your screen.")
+                    )
+                ),
+                ui.column(
+                    9,
+                    ui.card(
+                        ui.div(
+                            {"style": "overflow-x: auto"},
+                            ui.output_ui("validation_report_ui")
+                        )
+                    )
                 )
-            ),  
-            ui.output_ui("validation_report_ui")
+            )
         )
     )
 

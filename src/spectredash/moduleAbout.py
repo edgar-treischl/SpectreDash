@@ -33,9 +33,6 @@ def about_ui():
                             ui.tags.li(ui.strong("Labels:"), " Shows which labels the data includes."),
                             ui.tags.li(ui.strong("Diff:"), " Fetch the latest 'git diff'."),
 
-                        ),
-                        ui.p(
-                            f"Created with {emoji.emojize(':red_heart:')}, shiny, and {emoji.emojize(':octopus:')}."
                         )
                     ),
                 ),

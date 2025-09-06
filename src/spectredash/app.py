@@ -16,8 +16,10 @@ from spectredash.modulePipe import pipe_ui, pipe_server
 
 
 
+
 # ---- App UI ----
 app_ui = ui.page_navbar(
+    # Positional arguments first: your nav panels
     ui.nav_panel("About", about_ui("about")),
     ui.nav_panel("Overview", overview_ui("overview")),
     ui.nav_panel("Pipe", pipe_ui("pipe")),
@@ -26,14 +28,40 @@ app_ui = ui.page_navbar(
     ui.nav_panel("Classes", class_ui("class")),
     ui.nav_panel("Labels", labels_ui("labels")),
     ui.nav_panel("Diff", diff_ui("diff")),
-    title = ui.a(
-        ui.span(ui.img(src="logo.png", height="60px", class_="me-2"), 
-        "Spectre"),
-    href="/",  # Replace with your actual app URL path if needed
-    class_="text-decoration-none d-flex align-items-center text-body"
-),
-    footer = ui.p(ui.tags.a(f"Visit OddJob {emoji.emojize(':top_hat:')}", href="https://gitlab.lrz.de/edgar-treischl/OddJob", target="_blank")
-)
+
+    # Then keyword args
+    title=ui.a(
+        ui.span(
+            ui.img(src="logo.png", height="60px", class_="me-2"),
+            "Spectre"
+        ),
+        href="/",
+        class_="text-decoration-none d-flex align-items-center text-body"
+    ),
+
+    footer=ui.tags.footer(
+        {
+            "style": "text-align: center; padding: 10px; font-size: 0.9em; color: #666;"
+        },
+        ui.HTML("Created with "),
+        emoji.emojize(":red_heart:"),
+        ui.HTML(", shiny, and "),
+        emoji.emojize(":octopus:"),
+        ui.HTML(" | By: "),
+        ui.tags.a(
+            "Edgar Treischl",
+            href="https://edgar-treischl.de",
+            target="_blank",
+            style="color: #666; text-decoration: underline;"
+        ),
+        ui.HTML(" | "),
+        ui.tags.a(
+            "Visit GitLab",
+            href="https://gitlab.lrz.de/edgar-treischl/ReportMasterApp",
+            target="_blank",
+            style="color: #666; text-decoration: underline;"
+        ),
+    )
 )
 
 

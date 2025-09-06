@@ -9,15 +9,30 @@ from spectredash.utils import shared_first_choice
 def variables_ui():
     return ui.navset_card_underline(
         ui.nav_panel(
-            ui.div(
-                {"class": "mb-3"}, 
-                ui.h4(f"{emoji.emojize(':bullseye:')} Variables", class_="m-0"),
-                ui.p(
-                    "Variables on the spot. Are they (still) present?",
-                    class_="text-muted small mb-0"
+            ui.h4(f"{emoji.emojize(':bullseye:')} Variables", class_="m-0"),
+            ui.row(
+                ui.column(
+                    4,
+                    ui.card(
+                        ui.p("Which variables are included in the data? This view helps compare column presence across different dataset versions."),
+                        ui.tags.ul(
+                            ui.tags.li("Each row represents a dataset version."),
+                            ui.tags.li("Each column represents a variable."),
+                            ui.tags.li("Filled cells indicate presence; empty or missing ones indicate absence."),
+                        ),
+                        ui.p({"class": "text-muted small"}, "Use this to detect schema drift or inconsistencies over time.")
+                    )
+                ),
+                ui.column(
+                    8,
+                    ui.card(
+                        ui.div(
+                            {"style": "overflow-x: auto"},
+                            ui.output_ui("presence_plot_ui")
+                        )
+                    )
                 )
-            ), 
-            ui.output_ui("presence_plot_ui") 
+            )
         )
     )
 

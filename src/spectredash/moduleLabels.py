@@ -9,15 +9,30 @@ from spectredash.utils import shared_first_choice
 def labels_ui():
     return ui.navset_card_underline(
         ui.nav_panel(
-            ui.div(
-                {"class": "mb-3"}, 
-                ui.h4(f"{emoji.emojize(':label:')} Labels", class_="m-0"),
-                ui.p(
-                    "Which categories and labels does the data include?",
-                    class_="text-muted small mb-0"
+            ui.h4(f"{emoji.emojize(':label:')} Labels", class_="m-0"),
+            ui.row(
+                ui.column(
+                    4,
+                    ui.card(
+                        ui.p("This panel shows the labels or category identifiers present in the dataset."),
+                        ui.tags.ul(
+                            ui.tags.li("Each label represents a class or group associated with your data."),
+                            ui.tags.li("Useful for supervised tasks like classification or evaluation."),
+                            ui.tags.li("Check for consistency in labels across dataset versions."),
+                        ),
+                        ui.p({"class": "text-muted small"}, "Ensure all expected labels are present before modeling.")
+                    )
+                ),
+                ui.column(
+                    8,
+                    ui.card(
+                        ui.div(
+                            {"style": "overflow-x: auto"},
+                            ui.output_ui("labels_plot_ui")
+                        )
+                    )
                 )
-            ),
-            ui.output_ui("labels_plot_ui")
+            )
         )
     )
 

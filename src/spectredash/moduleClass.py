@@ -9,15 +9,30 @@ from spectredash.utils import shared_first_choice
 def class_ui():
     return ui.navset_card_underline(
         ui.nav_panel(
-            ui.div(
-                {"class": "mb-3"}, 
-                ui.h4(f"{emoji.emojize(':school:')} Classes", class_="m-0"),
-                ui.p(
-                    "Data classes: Any changes here?",
-                    class_="text-muted small mb-0"
+            ui.h4(f"{emoji.emojize(':school:')} Classes", class_="m-0"),
+            ui.row(
+                ui.column(
+                    4,
+                    ui.card(
+                        ui.p("This panel shows the distribution of classes (levels) within factor-like variables across dataset versions."),
+                        ui.tags.ul(
+                            ui.tags.li("Each facet or section represents one categorical variable."),
+                            ui.tags.li("You can track if levels have changed, disappeared, or appeared."),
+                            ui.tags.li("Useful for identifying category drift or inconsistent encoding."),
+                        ),
+                        ui.p({"class": "text-muted small"}, "Look for unexpected class changes or missing categories over time.")
+                    )
+                ),
+                ui.column(
+                    8,
+                    ui.card(
+                        ui.div(
+                            {"style": "overflow-x: auto"},
+                            ui.output_ui("class_plot_ui")
+                        )
+                    )
                 )
-            ),
-            ui.output_ui("class_plot_ui")  
+            )
         )
     )
 

@@ -11,15 +11,11 @@ from spectredash.utils import shared_first_choice, shared_second_choice
 def overview_ui():
     return ui.navset_card_underline(
         ui.nav_panel(
+            ui.h4(f"{emoji.emojize(':clipboard:')} Overview", class_="m-0"),
             ui.div(
-                {"class": "mb-3"}, 
-                ui.h4(f"{emoji.emojize(':clipboard:')} Overview", class_="m-0"),
-                ui.p(
-                    "A quick overview about the data.",
-                    class_="text-muted small mb-0"
-                )
-            ),            
-            ui.output_ui("table_html2"),
+                {"style": "overflow-x: auto"},
+                ui.output_ui("table_html2")
+                )   
         )
     )
 
