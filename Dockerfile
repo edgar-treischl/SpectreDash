@@ -1,7 +1,7 @@
 # Base Python
 FROM python:3.12-slim-bullseye AS builder
 
-ENV POETRY_VERSION=1.8.2 \
+ENV POETRY_VERSION=2.1.1 \
     PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1
 
