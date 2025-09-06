@@ -1,4 +1,4 @@
-# ![🕵️ SpectreApp](src/spectredash/www/logo.png)
+# 🕵️ SpectreApp <img src="src/spectredash/www/logo.png" align="right" width="175"/>
 
 **Spectre** silently infiltrates your data validation pipelines and turns raw audit logs into sleek, interactive visual intelligence.
 
