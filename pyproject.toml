@@ -14,4 +14,12 @@ dependencies = [
 ]
 
 [tool.poetry]
+name = "spectredash"
+version = "0.1.0"
+description = "Experimental dashboard for spectral data"
+authors = ["edgar.treischl <edgar.treischl@isb.bayern.de>"]
 packages = [{ include = "spectredash", from = "src" }]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
