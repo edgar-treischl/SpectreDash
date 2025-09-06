@@ -5,19 +5,39 @@ from spectredash.plots import plot_pipe
 from spectredash.utils import shared_first_choice
 
 
+from shiny import module, ui
+import emoji
+
+from shiny import module, ui
+import emoji
+
 @module.ui
 def pipe_ui():
     return ui.navset_card_underline(
         ui.nav_panel(
-            ui.div(
-                {"class": "mb-3"}, 
-                ui.h4(f"{emoji.emojize(':label:')} Pipe", class_="m-0"),
-                ui.p(
-                    "What does the validation pipe test?",
-                    class_="text-muted small mb-0"
+            ui.h4(f"{emoji.emojize(':label:')} Pipeline Overview", class_="m-0"),  
+            ui.row(
+                ui.column(
+                    4,
+                    ui.card(
+                        ui.p("What does the pipe test? The chart on the right visualizes the validation pipeline extracted from Octopussy."),
+                        ui.tags.ul(
+                            ui.tags.li("Each filled point represents a validation step applied to a variable."),
+                            ui.tags.li("You can see on one page which variables were validated and how."),
+                            ui.tags.li("Use it to identify gaps or inconsistencies in validation coverage.")
+                        )
+                    )
+                ),
+                ui.column(
+                    8,
+                    ui.card(
+                        ui.div(
+                            {"style": "overflow-x: auto"},
+                            ui.output_ui("pipe_plot_ui")
+                        )
+                    )
                 )
-            ),
-            ui.output_ui("pipe_plot_ui")
+            )
         )
     )
 
