@@ -33,3 +33,13 @@ Each section is modularized:
 | `Labels`     | Shows label definitions and usage                                       |
 | `Diff`       | Fetches the latest Git diff for tracking validation logic changes       |
 
+
+## Deploy
+
+```bash
+docker pull ghcr.io/edgar-treischl/spectredash:latest
+```
+
+```bash
+docker run --rm -p 8000:8000 ghcr.io/edgar-treischl/spectredash
+```
