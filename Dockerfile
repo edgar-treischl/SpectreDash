@@ -19,7 +19,8 @@ RUN pip install "poetry==$POETRY_VERSION"
 ENV PATH="/root/.local/bin:$PATH"
 
 # Copy only dependency files for better layer caching
-COPY pyproject.toml poetry.lock ./
+COPY  README.md pyproject.toml poetry.lock ./
+
 
 RUN poetry config virtualenvs.create false \
     && poetry install --no-interaction --no-ansi
