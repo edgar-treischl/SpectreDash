@@ -32,6 +32,7 @@ COPY src/ ./src/
 FROM python:3.12-slim-bullseye
 
 WORKDIR /app
+ENV PYTHONPATH=/app/src
 
 # Copy installed dependencies
 COPY --from=builder /usr/local /usr/local
