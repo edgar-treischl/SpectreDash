@@ -1,4 +1,4 @@
-# Base Python and a new lock
+# Base Python:  poetry==1.8.2
 FROM python:3.12-slim-bullseye AS builder
 
 ENV POETRY_VERSION=1.8.2 \
