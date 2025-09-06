@@ -21,13 +21,14 @@ ENV PATH="/root/.local/bin:$PATH"
 # Copy only dependency files for better layer caching
 COPY  README.md pyproject.toml poetry.lock ./
 
+# Copy your application code
+COPY src/ ./src/
+
 
 RUN poetry config virtualenvs.create false \
     && poetry install --no-interaction --no-ansi
 
 
-# Copy your application code
-COPY src/ ./src/
 
 # -------- Runtime Stage --------
 FROM python:3.12-slim-bullseye
