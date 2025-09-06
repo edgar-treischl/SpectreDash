@@ -1,4 +1,4 @@
-# Base Python:  poetry==1.8.2
+# Base Python
 FROM python:3.12-slim-bullseye AS builder
 
 ENV POETRY_VERSION=1.8.2 \
@@ -23,7 +23,6 @@ COPY pyproject.toml poetry.lock ./
 
 RUN poetry config virtualenvs.create false \
     && poetry install --no-interaction --no-ansi
-
 
 
 # Copy your application code
