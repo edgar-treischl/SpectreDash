@@ -14,7 +14,7 @@ def class_ui():
                 ui.column(
                     3,
                     ui.card(
-                        ui.p("This panel shows the distribution of classes (levels) within factor-like variables across dataset versions."),
+                        ui.p("This panel shows the distribution of classes (levels) across dataset versions."),
                         ui.tags.ul(
                             ui.tags.li("Each facet or section represents one categorical variable."),
                             ui.tags.li("You can track if levels have changed, disappeared, or appeared."),

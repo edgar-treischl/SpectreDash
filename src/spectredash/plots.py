@@ -75,9 +75,33 @@ def plot_PresenceMatrixWeb(table, skip=0, clip_date=False):
     # lambda x: x[:13] + '...' if len(x) > 13 else x
     # )
 
+    # --- Determine plot adjustments
+    n_versions = presence_data["version"].nunique()
+    x_label_angle = 45 if n_versions > 8 else 0
+    base_font_size = 14 if n_versions > 12 else 16
+    aspect = 0.6 if len(col_order) > 20 else 0.8
+
 
 
     # Step 5: Plot
+    # plot = (
+    #     ggplot(presence_data, aes(x="version", y="column_name", fill="present"))
+    #     + geom_tile(color="white", alpha=0.9)
+    #     + scale_fill_manual(
+    #         values={True: "#31572c", False: "#d00000"},
+    #         labels={True: "Yes", False: "No"},
+    #         name="Present"
+    #     )
+    #     + labs(x="Version", y="Column")
+    #     + theme_minimal(base_size=16)
+    #     + theme(
+    #         axis_text_x=element_text(size=14, angle=0, ha="center"),
+    #         axis_text_y=element_text(size=14),
+    #         aspect_ratio=0.8
+    #     )
+    #      + coord_cartesian(expand=True)
+    # )
+    # --- Plot
     plot = (
         ggplot(presence_data, aes(x="version", y="column_name", fill="present"))
         + geom_tile(color="white", alpha=0.9)
@@ -87,13 +111,17 @@ def plot_PresenceMatrixWeb(table, skip=0, clip_date=False):
             name="Present"
         )
         + labs(x="Version", y="Column")
-        + theme_minimal(base_size=16)
+        + theme_minimal(base_size=base_font_size)
         + theme(
-            axis_text_x=element_text(size=14, angle=0, ha="center"),
-            axis_text_y=element_text(size=14),
-            aspect_ratio=0.8
+            axis_text_x=element_text(size=base_font_size - 2, angle=x_label_angle, ha="center"),
+            axis_text_y=element_text(size=base_font_size - 2),
+            legend_title=element_text(size=base_font_size),
+            legend_text=element_text(size=base_font_size - 2),
+            plot_title=element_text(size=base_font_size + 2, weight="bold"),
+            legend_position="bottom",
+            aspect_ratio=aspect
         )
-         + coord_cartesian(expand=True)
+        + coord_cartesian(expand=True)
     )
 
     return plot
@@ -152,13 +180,22 @@ def plot_TypeMatrixWeb(table, skip=0, clip_date=False):
     plot = (
         ggplot(type_data, aes(x="version", y="column_name", fill="type"))
         + geom_tile(color="white", alpha=0.95)
-        + scale_fill_brewer(type='qual', palette='Set1', na_value="grey50", name="Type")
+        #+ scale_fill_brewer(type='qual', palette='Accent', na_value="grey50", name="Type")
         #+ scale_fill_viridis_d(name="Type", na_value="grey50")
+        + scale_fill_manual(
+            values={
+                "factor": "#1f77b4",   
+                "integer": "#CCCCCC",  
+                "numeric": "#2ca02c"
+                }, 
+                na_value="#d62728",
+                name="Type")
         + labs(x="Version", y="Column")
-        + theme_minimal(base_size=18)
+        + theme_minimal(base_size=14)
         + theme(
-            axis_text_x=element_text(size=14, angle=0, ha="right"),
+            axis_text_x=element_text(size=14, angle=0, ha="center"),
             axis_text_y=element_text(size=14),
+            legend_position="bottom",
             aspect_ratio=0.8
         )
         + coord_cartesian(expand=True)
@@ -206,16 +243,16 @@ def plot_LabelMatrix(table: str) -> ggplot:
     plot = (
         ggplot(grouped, aes(x="version", y="column_name", fill="changed"))
         + geom_tile(color="white")
-        + geom_text(aes(label="label_short"), size=8, color="white")
+        + geom_text(aes(label="label_short"), size=10, color="white")
         + scale_fill_manual(
             values={True: "#d00000", False: "#31572c"},
             labels={True: "Changed", False: "No Change"},
-            name=""
+            name="Changes"
         )
         + labs(x="Version", y="Column")
-        + theme_minimal(base_size=16)
+        + theme_minimal(base_size=14)
         + theme(
-            axis_text_x=element_text(size=14, angle=0, ha="right"),
+            axis_text_x=element_text(size=14, angle=0, ha="center"),
             axis_text_y=element_text(size=14),
             legend_position="bottom"
         )
@@ -272,11 +309,11 @@ def plot_pipe():
         + geom_line(aes(group='cols_short'), size=0.5, color='lightgray')
         + geom_point(size=4, shape='o')
         + scale_fill_gradient(low="white", high="#31572c", na_value="white")
-        + labs(x='', y='')
+        + labs(x='Test', y='Column')
         + theme_minimal(base_size=14)
         + theme(
             legend_position='none',
-            axis_text_x=element_text(angle=45, ha='right'),
+            axis_text_x=element_text(angle=45, ha='center'),
             panel_grid=element_blank()
         )
     )

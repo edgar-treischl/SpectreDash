@@ -22,7 +22,7 @@ def pipe_ui():
                     ui.card(
                         ui.p("What does the pipe test? The chart on the right visualizes the validation pipeline extracted from Octopussy."),
                         ui.tags.ul(
-                            ui.tags.li("Each filled point represents a validation step applied to a variable."),
+                            ui.tags.li("Each filled point represents a validation step applied to the column."),
                             ui.tags.li("You can see on one page which variables were validated and how."),
                             ui.tags.li("Use it to identify gaps or inconsistencies in validation coverage.")
                         )

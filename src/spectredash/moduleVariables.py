@@ -18,7 +18,7 @@ def variables_ui():
                         ui.tags.ul(
                             ui.tags.li("Each row represents a dataset version."),
                             ui.tags.li("Each column represents a variable."),
-                            ui.tags.li("Filled cells indicate presence; empty or missing ones indicate absence."),
+                            ui.tags.li("Green cells indicate presence; red indicate absence."),
                         ),
                         ui.p({"class": "text-muted small"}, "Use this to detect schema drift or inconsistencies over time.")
                     )
@@ -68,7 +68,7 @@ def variables_server(input, output, session):
         result = plot_state.get()
         if result["success"] and isinstance(result["plot"], ggplot):
             return ui.div(
-                ui.output_plot("presence_matrix_plot", width="100%", height="600px")
+                ui.output_plot("presence_matrix_plot", width="100%", height="500px")
             )
         else:
             return ui.div(
