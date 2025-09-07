@@ -16,7 +16,6 @@ from spectredash.modulePipe import pipe_ui, pipe_server
 
 # ---- App UI ----
 app_ui = ui.page_navbar(
-    # Positional arguments first: your nav panels
     ui.nav_panel("About", about_ui("about")),
     ui.nav_panel("Overview", overview_ui("overview")),
     ui.nav_panel("Pipe", pipe_ui("pipe")),
@@ -25,7 +24,6 @@ app_ui = ui.page_navbar(
     ui.nav_panel("Classes", class_ui("class")),
     ui.nav_panel("Labels", labels_ui("labels")),
     ui.nav_panel("Diff", diff_ui("diff")),
-    # Then keyword args
     title=ui.a(
         ui.span(ui.img(src="logo.png", height="60px", class_="me-2"), "Spectre"),
         href="/",
@@ -53,9 +51,9 @@ app_ui = ui.page_navbar(
             href="https://edgar-treischl.de",
             target="_blank",
             style="color: #666; text-decoration: underline;",
-        ),
+        )
         # ui.HTML(" | "),
-    ),
+    )
 )
 
 

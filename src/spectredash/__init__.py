@@ -1,10 +1,6 @@
 # src/spectredash/__init__.py
 
 # Expose commonly used elements for easy access
-from .app import (
-    app_ui,
-    app_server,
-)  # Exposing the app UI and server to make them easily accessible
 from .getduck import duckdb_table  # Expose the DuckDB function
 from .moduleAbout import about_ui, about_server
 from .moduleOverview import overview_ui, overview_server
@@ -21,3 +17,20 @@ from .plots import plot_PresenceMatrixWeb, plot_TypeMatrixWeb, plot_LabelMatrix
 
 from .utils import filter_and_sort_versions, datasets
 from .utils import shared_first_choice, shared_second_choice
+
+
+__all__ = [
+    "duckdb_table",
+    "about_ui", "about_server",
+    "overview_ui", "overview_server",
+    "validation_ui", "validation_server",
+    "variables_ui", "variables_server",
+    "class_ui", "class_server",
+    "labels_ui", "labels_server",
+    "pipe_ui", "pipe_server",
+    "get_diff", "visualize_diff",
+    "table_overview", "table_pointer",
+    "plot_PresenceMatrixWeb", "plot_TypeMatrixWeb", "plot_LabelMatrix",
+    "filter_and_sort_versions", "datasets",
+    "shared_first_choice", "shared_second_choice",
+]
