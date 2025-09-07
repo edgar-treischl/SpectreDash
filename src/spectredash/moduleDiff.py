@@ -1,6 +1,6 @@
 from shiny import module, render, ui, reactive
 import emoji
-from htmltools import HTML, TagList
+from htmltools import HTML
 from spectredash.getgit import get_diff, visualize_diff
 from spectredash.utils import shared_first_choice
 

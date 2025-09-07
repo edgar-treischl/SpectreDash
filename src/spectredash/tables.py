@@ -1,7 +1,6 @@
 import os
 import pandas as pd
 import emoji
-import os
 from great_tables import GT, md, pct, google_font, style, loc
 from spectredash.getduck import duckdb_table
 
@@ -47,9 +46,9 @@ def table_overview(df: pd.DataFrame) -> GT:
 
     # deleted {emoji.emojize(':compass:')}
     df_display.columns = [
-        f"Table",
-        f"Version",
-        f"Status",
+        "Table",
+        "Version",
+        "Status",
         f"{emoji.emojize(':link:')} Link",
         f"{emoji.emojize(':detective:')} Agent",
     ]

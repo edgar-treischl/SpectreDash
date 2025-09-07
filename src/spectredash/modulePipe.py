@@ -5,11 +5,7 @@ from spectredash.plots import plot_pipe
 from spectredash.utils import shared_first_choice
 
 
-from shiny import module, ui
-import emoji
 
-from shiny import module, ui
-import emoji
 
 
 @module.ui

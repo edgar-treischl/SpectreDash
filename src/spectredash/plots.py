@@ -1,8 +1,6 @@
 # ---- Imports ----
 import re
-import numpy as np
 import pandas as pd
-from textwrap import shorten
 
 from plotnine import (
     ggplot,
@@ -11,7 +9,6 @@ from plotnine import (
     geom_text,
     geom_point,
     geom_line,
-    scale_fill_brewer,
     scale_fill_manual,
     scale_fill_gradient,
     scale_x_discrete,

@@ -5,7 +5,6 @@ from shiny import module, reactive, render, ui
 import os
 import emoji
 
-from spectredash.tables import table_pointer
 from spectredash.getduck import duckdb_table
 
 from spectredash.utils import shared_first_choice, shared_second_choice
