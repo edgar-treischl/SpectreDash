@@ -12,20 +12,14 @@ def overview_ui():
     return ui.navset_card_underline(
         ui.nav_panel(
             ui.h4(f"{emoji.emojize(':clipboard:')} Overview", class_="m-0"),
-            ui.div(
-                {"style": "overflow-x: auto"},
-                ui.output_ui("table_html2")
-                )   
+            ui.div({"style": "overflow-x: auto"}, ui.output_ui("table_html2")),
         )
     )
 
 
-
-
-
 @module.server
 def overview_server(input, output, session):
-    
+
     @output
     @render.ui
     def table_html2():
@@ -36,4 +30,3 @@ def overview_server(input, output, session):
             return ui.div("Please select both a table and a version.")
 
         return table_pointer(choice, version)
-

@@ -22,43 +22,44 @@ def table_overview(df: pd.DataFrame) -> GT:
         GT: great_tables GT object representing the styled summary table
     """
     # Extract basename from 'report_path' to use as link text
-    df['report_path'] = df['report_path'].apply(os.path.basename)
+    df["report_path"] = df["report_path"].apply(os.path.basename)
 
     # Fix datetime string format if needed (convert Txx-xx-xx to Txx:xx:xx)
-    df['version'] = df['version'].str.replace(r'T(\d+)-(\d+)-(\d+)', r'T\1:\2:\3', regex=True)
+    df["version"] = df["version"].str.replace(
+        r"T(\d+)-(\d+)-(\d+)", r"T\1:\2:\3", regex=True
+    )
 
     # Convert 'version' to datetime
-    df['version'] = pd.to_datetime(df['version'])
+    df["version"] = pd.to_datetime(df["version"])
 
     # Filter to keep only the latest version per 'table'
-    df_latest = df.loc[df.groupby('table')['version'].idxmax()].copy()
+    df_latest = df.loc[df.groupby("table")["version"].idxmax()].copy()
 
     # Create markdown links using 'report_path' as link text
-    df_latest['html_link'] = df_latest['report_path'].apply(
+    df_latest["html_link"] = df_latest["report_path"].apply(
         lambda t: f"[{t}](https://gitlab.lrz.de/edgar-treischl/OddJob/-/tree/main/{t}/pointers?ref_type=heads)"
     )
 
     # Select and rename columns for display with emojis
-    df_display = df_latest[['table', 'version', 'status', 'html_link', 'validated_by']].copy()
-    
-    #deleted {emoji.emojize(':compass:')}
+    df_display = df_latest[
+        ["table", "version", "status", "html_link", "validated_by"]
+    ].copy()
+
+    # deleted {emoji.emojize(':compass:')}
     df_display.columns = [
         f"Table",
         f"Version",
         f"Status",
         f"{emoji.emojize(':link:')} Link",
-        f"{emoji.emojize(':detective:')} Agent"
+        f"{emoji.emojize(':detective:')} Agent",
     ]
 
     # Build and style the great_tables GT table
     gt_table = (
         GT(df_display)
-        .tab_header(
-            title=md(f"{emoji.emojize(':man_running:')} Summary Last Run")
-        )
+        .tab_header(title=md(f"{emoji.emojize(':man_running:')} Summary Last Run"))
         .fmt_datetime(
-            columns=[f"{emoji.emojize(':compass:')} Version"],
-            date_style="iso"
+            columns=[f"{emoji.emojize(':compass:')} Version"], date_style="iso"
         )
         .cols_align("left", columns=df_display.columns.tolist())
         .opt_table_font(font=google_font("IBM Plex Sans"))
@@ -66,9 +67,6 @@ def table_overview(df: pd.DataFrame) -> GT:
     )
 
     return gt_table
-
-
-    
 
 
 def table_pointer(pointer_name="penguins", date="2025-08-20T13-52-15"):
@@ -102,8 +100,7 @@ def table_pointer(pointer_name="penguins", date="2025-08-20T13-52-15"):
 
     # Filter pointer info
     pointer_row = pointers_df[
-        (pointers_df["table"] == pointer_name) &
-        (pointers_df["version"] == date)
+        (pointers_df["table"] == pointer_name) & (pointers_df["version"] == date)
     ].copy()
 
     if pointer_row.empty:
@@ -111,11 +108,9 @@ def table_pointer(pointer_name="penguins", date="2025-08-20T13-52-15"):
 
     # Prepare metadata table
     meta_filtered = (
-        meta_df[
-            (meta_df["table"] == pointer_name) &
-            (meta_df["version"] == date)
+        meta_df[(meta_df["table"] == pointer_name) & (meta_df["version"] == date)][
+            ["column_name", "label", "type", "levels", "description"]
         ]
-        [["column_name", "label", "type", "levels", "description"]]
         .rename(columns={"column_name": "column"})
         .copy()
     )
@@ -137,16 +132,15 @@ def table_pointer(pointer_name="penguins", date="2025-08-20T13-52-15"):
             label=md("**Label**"),
             type=md("**Type**"),
             levels=md("**Levels**"),
-            description=md("**Description**")
+            description=md("**Description**"),
         )
         .fmt_markdown(columns=meta_filtered.columns.tolist())
         .tab_style(
             style=style.text(size="22px", weight="500", align="left", color="#444444"),
-            locations=loc.title()
+            locations=loc.title(),
         )
         .tab_style(
-            style=style.text(size="18px", align="left"),
-            locations=loc.subtitle()
+            style=style.text(size="18px", align="left"), locations=loc.subtitle()
         )
         .tab_options(table_width="100%", table_font_size=pct(110))
         .opt_table_font(font=google_font("IBM Plex Sans"))

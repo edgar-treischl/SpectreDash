@@ -14,28 +14,38 @@ def labels_ui():
                 ui.column(
                     3,
                     ui.card(
-                        ui.p("This panel shows the labels or category identifiers present in the dataset."),
-                        ui.tags.ul(
-                            ui.tags.li("Each label represents a class or group associated with your data."),
-                            ui.tags.li("Useful for supervised tasks like classification or evaluation."),
-                            ui.tags.li("Check for consistency in labels across dataset versions."),
+                        ui.p(
+                            "This panel shows the labels or category identifiers present in the dataset."
                         ),
-                        ui.p({"class": "text-muted small"}, "Ensure all expected labels are present before modeling.")
-                    )
+                        ui.tags.ul(
+                            ui.tags.li(
+                                "Each label represents a class or group associated with your data."
+                            ),
+                            ui.tags.li(
+                                "Useful for supervised tasks like classification or evaluation."
+                            ),
+                            ui.tags.li(
+                                "Check for consistency in labels across dataset versions."
+                            ),
+                        ),
+                        ui.p(
+                            {"class": "text-muted small"},
+                            "Ensure all expected labels are present before modeling.",
+                        ),
+                    ),
                 ),
                 ui.column(
                     9,
                     ui.card(
                         ui.div(
                             {"style": "overflow-x: auto"},
-                            ui.output_ui("labels_plot_ui")
+                            ui.output_ui("labels_plot_ui"),
                         )
-                    )
-                )
-            )
+                    ),
+                ),
+            ),
         )
     )
-
 
 
 @module.server
@@ -56,7 +66,7 @@ def labels_server(input, output, session):
             return {
                 "success": False,
                 "error": f"Error generating plot for '{user_table}': {str(e)}",
-                "plot": None
+                "plot": None,
             }
 
     @reactive.Effect
@@ -74,8 +84,10 @@ def labels_server(input, output, session):
             )
         else:
             return ui.div(
-                {"class": "d-flex flex-column justify-content-center align-items-center",
-                 "style": "min-height: 400px; background-color: #f8f9fa;"},
+                {
+                    "class": "d-flex flex-column justify-content-center align-items-center",
+                    "style": "min-height: 400px; background-color: #f8f9fa;",
+                },
                 ui.tags.i(class_="fas fa-exclamation-circle text-warning fa-4x mb-3"),
                 ui.h4("Plot Not Available", class_="text-danger"),
                 ui.p(result["error"], class_="text-muted text-center"),

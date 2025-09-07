@@ -14,25 +14,35 @@ def class_ui():
                 ui.column(
                     3,
                     ui.card(
-                        ui.p("This panel shows the distribution of classes (levels) across dataset versions."),
-                        ui.tags.ul(
-                            ui.tags.li("Each facet or section represents one categorical variable."),
-                            ui.tags.li("You can track if levels have changed, disappeared, or appeared."),
-                            ui.tags.li("Useful for identifying category drift or inconsistent encoding."),
+                        ui.p(
+                            "This panel shows the distribution of classes (levels) across dataset versions."
                         ),
-                        ui.p({"class": "text-muted small"}, "Look for unexpected class changes or missing categories over time.")
-                    )
+                        ui.tags.ul(
+                            ui.tags.li(
+                                "Each facet or section represents one categorical variable."
+                            ),
+                            ui.tags.li(
+                                "You can track if levels have changed, disappeared, or appeared."
+                            ),
+                            ui.tags.li(
+                                "Useful for identifying category drift or inconsistent encoding."
+                            ),
+                        ),
+                        ui.p(
+                            {"class": "text-muted small"},
+                            "Look for unexpected class changes or missing categories over time.",
+                        ),
+                    ),
                 ),
                 ui.column(
                     9,
                     ui.card(
                         ui.div(
-                            {"style": "overflow-x: auto"},
-                            ui.output_ui("class_plot_ui")
+                            {"style": "overflow-x: auto"}, ui.output_ui("class_plot_ui")
                         )
-                    )
-                )
-            )
+                    ),
+                ),
+            ),
         )
     )
 
@@ -55,7 +65,7 @@ def class_server(input, output, session):
             return {
                 "success": False,
                 "error": f"Error generating plot for '{user_table}': {str(e)}",
-                "plot": None
+                "plot": None,
             }
 
     @reactive.Effect
@@ -73,8 +83,10 @@ def class_server(input, output, session):
             )
         else:
             return ui.div(
-                {"class": "d-flex flex-column justify-content-center align-items-center",
-                 "style": "min-height: 400px; background-color: #f8f9fa;"},
+                {
+                    "class": "d-flex flex-column justify-content-center align-items-center",
+                    "style": "min-height: 400px; background-color: #f8f9fa;",
+                },
                 ui.tags.i(class_="fas fa-exclamation-circle text-warning fa-4x mb-3"),
                 ui.h4("Plot Not Available", class_="text-danger"),
                 ui.p(result["error"], class_="text-muted text-center"),

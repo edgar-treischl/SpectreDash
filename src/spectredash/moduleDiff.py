@@ -5,7 +5,6 @@ from spectredash.getgit import get_diff, visualize_diff
 from spectredash.utils import shared_first_choice
 
 
-
 @module.ui
 def diff_ui():
     return ui.navset_card_underline(
@@ -18,21 +17,17 @@ def diff_ui():
                     ui.input_action_button(
                         "fetch_diff",
                         "Fetch",
-                        class_="btn btn-sm btn-outline-primary ms-3"
-                    )
+                        class_="btn btn-sm btn-outline-primary ms-3",
+                    ),
                 ),
                 ui.p(
                     "Last goodie. Fetch the latest diff of the table.",
-                    class_="text-muted small mb-0 mt-2"
-                )
+                    class_="text-muted small mb-0 mt-2",
+                ),
             ),
-            ui.output_ui("diff_or_message")
+            ui.output_ui("diff_or_message"),
         )
     )
-
-
-
-
 
 
 @module.server
@@ -63,7 +58,9 @@ def diff_server(input, output, session):
             html = visualize_diff(lines, browse=False)
             return HTML(html)
         except Exception as e:
-            render_state.set({"valid": False, "error": f"Failed to render diff: {str(e)}"})
+            render_state.set(
+                {"valid": False, "error": f"Failed to render diff: {str(e)}"}
+            )
             return None
 
     @output
@@ -73,12 +70,19 @@ def diff_server(input, output, session):
 
         if not state["valid"]:
             return ui.div(
-                {"class": "d-flex flex-column justify-content-center align-items-center",
-                 "style": "height: 600px; background-color: #f8f9fa;"},
-                ui.tags.i({"class": "fa fa-exclamation-circle text-warning fa-4x mb-3"}),
+                {
+                    "class": "d-flex flex-column justify-content-center align-items-center",
+                    "style": "height: 600px; background-color: #f8f9fa;",
+                },
+                ui.tags.i(
+                    {"class": "fa fa-exclamation-circle text-warning fa-4x mb-3"}
+                ),
                 ui.h4("Diff Error", class_="text-danger"),
                 ui.p(ui.HTML(state["error"]), class_="text-center text-muted"),
-                ui.p("Please check your GitLab connection or table name.", class_="text-center")
+                ui.p(
+                    "Please check your GitLab connection or table name.",
+                    class_="text-center",
+                ),
             )
 
         if not diff_lines_val.get():
@@ -89,7 +93,3 @@ def diff_server(input, output, session):
             return ui.p("No diff available.")
 
         return html_content
-
-
-
-

@@ -15,7 +15,6 @@ logging.getLogger("urllib3").setLevel(logging.WARNING)
 logging.getLogger("gitlab").setLevel(logging.WARNING)
 
 
-
 def connect_gitlab():
     """
     Establish a connection to the GitLab API using a personal access token.
@@ -49,12 +48,11 @@ def connect_gitlab():
         raise RuntimeError(f"Could not connect to GitLab: {e}")
 
 
-
 def get_diff(table="penguins"):
     """
     Retrieve the latest Git diff for a specific YAML file in the GitLab repository.
 
-    This function connects to GitLab, filters commits affecting the file 
+    This function connects to GitLab, filters commits affecting the file
     `{table}/pipe_{table}.yml`, and returns the diff from the latest matching commit.
 
     The function expects commits with messages in the format:
@@ -88,7 +86,9 @@ def get_diff(table="penguins"):
 
         # Use direct HTTP call to get commits filtered by file path
         endpoint = f"/projects/{project_id}/repository/commits"
-        commits_raw = gl.http_get(endpoint, query={"path": oddjob_path, "per_page": 100})
+        commits_raw = gl.http_get(
+            endpoint, query={"path": oddjob_path, "per_page": 100}
+        )
 
         # Wrap raw responses into GitLab commit objects (optional but nice)
         commits = [project.commits.get(c["id"]) for c in commits_raw]
@@ -100,16 +100,23 @@ def get_diff(table="penguins"):
         return []
 
     # Create a DataFrame for filtering
-    data = [{
-        "id": c.id,
-        "message": c.message,
-        "authored_date": datetime.strptime(c.authored_date, "%Y-%m-%dT%H:%M:%S.%f%z")
-    } for c in commits]
+    data = [
+        {
+            "id": c.id,
+            "message": c.message,
+            "authored_date": datetime.strptime(
+                c.authored_date, "%Y-%m-%dT%H:%M:%S.%f%z"
+            ),
+        }
+        for c in commits
+    ]
 
     df = pd.DataFrame(data)
 
     # Filter by the exact commit message
-    filtered = df[df["message"] == commit_message].sort_values(by="authored_date", ascending=False)
+    filtered = df[df["message"] == commit_message].sort_values(
+        by="authored_date", ascending=False
+    )
 
     if filtered.empty:
         warnings.warn(f"No commits found with message '{commit_message}'")
@@ -125,22 +132,24 @@ def get_diff(table="penguins"):
 
     # Look for the specific file in the diff
     for file_diff in diff:
-        if file_diff.get("new_path") == oddjob_path or file_diff.get("old_path") == oddjob_path:
+        if (
+            file_diff.get("new_path") == oddjob_path
+            or file_diff.get("old_path") == oddjob_path
+        ):
             diff_text = file_diff.get("diff", "")
             return diff_text.splitlines()
 
-    warnings.warn(f"No diff found for file '{oddjob_path}' in commit '{latest_commit_id}'")
+    warnings.warn(
+        f"No diff found for file '{oddjob_path}' in commit '{latest_commit_id}'"
+    )
     return []
-
-
-
 
 
 def visualize_diff(diff: List[str], browse: bool = True) -> str:
     """
     Generate a syntax-highlighted HTML visualization of a Git diff.
 
-    This function takes a line-by-line Git diff (as a list of strings) and renders it 
+    This function takes a line-by-line Git diff (as a list of strings) and renders it
     into formatted HTML, including line numbers, color-coded changes (additions, removals, context),
     and basic styling for readability.
 
@@ -170,6 +179,7 @@ def visualize_diff(diff: List[str], browse: bool = True) -> str:
     for line in diff:
         if line.startswith("@@"):
             import re
+
             match = re.match(r"^@@ -(\d+),\d+ \+(\d+),\d+ @@", line)
             if match:
                 old_line_num = int(match.group(1)) - 1
@@ -180,8 +190,8 @@ def visualize_diff(diff: List[str], browse: bool = True) -> str:
             )
             continue
 
-        first_char = line[0] if line else ' '
-        content = html.escape(line[1:] if len(line) > 1 else '')
+        first_char = line[0] if line else " "
+        content = html.escape(line[1:] if len(line) > 1 else "")
 
         if first_char == "+":
             new_line_num += 1
@@ -215,11 +225,7 @@ def visualize_diff(diff: List[str], browse: bool = True) -> str:
         html_diff_lines.append(line_html)
 
     # Wrap in <pre><code>
-    final_html = (
-        "<pre><code>"
-        + "\n".join(html_diff_lines)
-        + "</code></pre>"
-    )
+    final_html = "<pre><code>" + "\n".join(html_diff_lines) + "</code></pre>"
 
     # CSS styling
     custom_css = """
@@ -267,7 +273,9 @@ def visualize_diff(diff: List[str], browse: bool = True) -> str:
 
     if browse:
         # Write to a temp HTML file and open in browser
-        with tempfile.NamedTemporaryFile(delete=False, suffix=".html", mode='w', encoding='utf-8') as f:
+        with tempfile.NamedTemporaryFile(
+            delete=False, suffix=".html", mode="w", encoding="utf-8"
+        ) as f:
             f.write(html_full)
             webbrowser.open("file://" + f.name)
 

@@ -11,33 +11,41 @@ import emoji
 from shiny import module, ui
 import emoji
 
+
 @module.ui
 def pipe_ui():
     return ui.navset_card_underline(
         ui.nav_panel(
-            ui.h4(f"{emoji.emojize(':label:')} Pipeline Overview", class_="m-0"),  
+            ui.h4(f"{emoji.emojize(':label:')} Pipeline Overview", class_="m-0"),
             ui.row(
                 ui.column(
                     3,
                     ui.card(
-                        ui.p("What does the pipe test? The chart on the right visualizes the validation pipeline extracted from Octopussy."),
+                        ui.p(
+                            "What does the pipe test? The chart on the right visualizes the validation pipeline extracted from Octopussy."
+                        ),
                         ui.tags.ul(
-                            ui.tags.li("Each filled point represents a validation step applied to the column."),
-                            ui.tags.li("You can see on one page which variables were validated and how."),
-                            ui.tags.li("Use it to identify gaps or inconsistencies in validation coverage.")
-                        )
-                    )
+                            ui.tags.li(
+                                "Each filled point represents a validation step applied to the column."
+                            ),
+                            ui.tags.li(
+                                "You can see on one page which variables were validated and how."
+                            ),
+                            ui.tags.li(
+                                "Use it to identify gaps or inconsistencies in validation coverage."
+                            ),
+                        ),
+                    ),
                 ),
                 ui.column(
                     9,
                     ui.card(
                         ui.div(
-                            {"style": "overflow-x: auto"},
-                            ui.output_ui("pipe_plot_ui")
+                            {"style": "overflow-x: auto"}, ui.output_ui("pipe_plot_ui")
                         )
-                    )
-                )
-            )
+                    ),
+                ),
+            ),
         )
     )
 
@@ -60,7 +68,7 @@ def pipe_server(input, output, session):
             return {
                 "success": False,
                 "error": f"Error generating plot for '{user_table}': {str(e)}",
-                "plot": None
+                "plot": None,
             }
 
     @reactive.Effect
@@ -82,7 +90,7 @@ def pipe_server(input, output, session):
                 ui.h4("Plot Not Available", class_="text-danger"),
                 ui.p(result["error"], class_="text-muted text-center"),
                 class_="d-flex flex-column justify-content-center align-items-center",
-                style="min-height: 400px; background-color: #f8f9fa;"
+                style="min-height: 400px; background-color: #f8f9fa;",
             )
 
     @output

@@ -14,25 +14,32 @@ def variables_ui():
                 ui.column(
                     3,
                     ui.card(
-                        ui.p("Which variables are included in the data? This view helps compare column presence across different dataset versions."),
+                        ui.p(
+                            "Which variables are included in the data? This view helps compare column presence across different dataset versions."
+                        ),
                         ui.tags.ul(
                             ui.tags.li("Each row represents a dataset version."),
                             ui.tags.li("Each column represents a variable."),
-                            ui.tags.li("Green cells indicate presence; red indicate absence."),
+                            ui.tags.li(
+                                "Green cells indicate presence; red indicate absence."
+                            ),
                         ),
-                        ui.p({"class": "text-muted small"}, "Use this to detect schema drift or inconsistencies over time.")
-                    )
+                        ui.p(
+                            {"class": "text-muted small"},
+                            "Use this to detect schema drift or inconsistencies over time.",
+                        ),
+                    ),
                 ),
                 ui.column(
                     9,
                     ui.card(
                         ui.div(
                             {"style": "overflow-x: auto"},
-                            ui.output_ui("presence_plot_ui")
+                            ui.output_ui("presence_plot_ui"),
                         )
-                    )
-                )
-            )
+                    ),
+                ),
+            ),
         )
     )
 
@@ -55,7 +62,7 @@ def variables_server(input, output, session):
             return {
                 "success": False,
                 "error": f"Error generating plot for '{user_table}': {str(e)}",
-                "plot": None
+                "plot": None,
             }
 
     @reactive.Effect
@@ -72,8 +79,10 @@ def variables_server(input, output, session):
             )
         else:
             return ui.div(
-                {"class": "d-flex flex-column justify-content-center align-items-center",
-                 "style": "min-height: 400px; background-color: #f8f9fa;"},
+                {
+                    "class": "d-flex flex-column justify-content-center align-items-center",
+                    "style": "min-height: 400px; background-color: #f8f9fa;",
+                },
                 ui.tags.i(class_="fas fa-exclamation-circle text-warning fa-4x mb-3"),
                 ui.h4("Plot Not Available", class_="text-danger"),
                 ui.p(result["error"], class_="text-muted text-center"),

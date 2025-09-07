@@ -3,6 +3,7 @@ import duckdb
 import pandas as pd
 import os
 
+
 def duckdb_table(table):
     """
     Fetch data from the DuckDB database.
@@ -14,7 +15,7 @@ def duckdb_table(table):
     - pd.DataFrame: Data from the specified table.
     """
     db_path = os.path.join(os.getcwd(), "src", "spectredash", "data", "meta.duckdb")
-    
+
     # Check if the database file exists
     if not os.path.exists(db_path):
         raise FileNotFoundError(f"Database file not found at {db_path}")
