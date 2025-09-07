@@ -62,8 +62,6 @@ def about_ui():
     )
 
 
-
-
 @module.server
 def about_server(input, output, session):
     
@@ -82,7 +80,7 @@ def about_server(input, output, session):
 
         return ui.input_select(
             "second_choice",
-            "Optional: Pick an older version",
+            "Pick a version (optional):",
             choices=versions
         )
 

@@ -31,10 +31,26 @@ Each section is modularized:
 
 ## Deploy
 
+Pull the image:
+
 ``` bash
 docker pull ghcr.io/edgar-treischl/spectredash:latest
 ```
 
+Test the container:
+
 ``` bash
 docker run --rm -p 8000:8000 ghcr.io/edgar-treischl/spectredash
+```
+
+Provide an .env file:
+
+```bash
+docker run --rm --env-file .env -p 8000:8000 ghcr.io/edgar-treischl/spectredash
+```
+
+Detached:
+
+```bash
+docker run --env-file .env -d -p 8000:8000 ghcr.io/edgar-treischl/spectredash
 ```
