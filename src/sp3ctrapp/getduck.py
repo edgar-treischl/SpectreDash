@@ -9,7 +9,7 @@ def duckdb_table(table):
     Fetch data from the DuckDB database.
 
     Args:
-    - table (str): The name of the table to fetch.
+    - table (str): The name of the table.
 
     Returns:
     - pd.DataFrame: Data from the specified table.
