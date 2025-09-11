@@ -1,12 +1,12 @@
-# src/spectredash/about.py
+# src/sp3ctrapp/about.py
 
 from shiny import module, render, ui, reactive
 import emoji
-from spectredash.utils import filter_and_sort_versions, datasets
-from spectredash.getduck import duckdb_table
-from spectredash.tables import table_pointer, table_overview
+from sp3ctrapp.utils import filter_and_sort_versions, datasets
+from sp3ctrapp.getduck import duckdb_table
+from sp3ctrapp.tables import table_pointer, table_overview
 
-from spectredash.utils import shared_first_choice, shared_second_choice
+from sp3ctrapp.utils import shared_first_choice, shared_second_choice
 
 
 @module.ui

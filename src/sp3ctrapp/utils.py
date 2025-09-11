@@ -1,6 +1,6 @@
 # from shiny import App, Inputs, Outputs, Session, render, ui
 import pandas as pd
-from spectredash.getduck import duckdb_table
+from sp3ctrapp.getduck import duckdb_table
 from shiny import reactive
 
 # Shared reactive values

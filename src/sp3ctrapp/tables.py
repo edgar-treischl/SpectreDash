@@ -2,7 +2,7 @@ import os
 import pandas as pd
 import emoji
 from great_tables import GT, md, pct, google_font, style, loc
-from spectredash.getduck import duckdb_table
+from sp3ctrapp.getduck import duckdb_table
 
 
 def table_overview(df: pd.DataFrame) -> GT:

@@ -20,7 +20,7 @@ from plotnine import (
     element_blank,
 )
 
-from spectredash.getduck import duckdb_table
+from sp3ctrapp.getduck import duckdb_table
 
 
 # ---- plot_PresenceMatrixWeb ----

@@ -1,7 +1,7 @@
 [tool.poetry]
-name = "spectredash"
+name = "sp3ctrApp"
 version = "0.1.0"
-description = "Experimental dashboard for spectral data"
+description = "The sp3ctreAPP visualize data from the oddjob repository."
 authors = ["edgar.treischl <edgar.treischl@isb.bayern.de>"]
 readme = "README.md"
 packages = [{ include = "spectredash", from = "src" }]

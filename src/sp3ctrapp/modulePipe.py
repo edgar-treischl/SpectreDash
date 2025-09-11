@@ -1,8 +1,8 @@
 from shiny import module, reactive, render, ui
 import emoji
 from plotnine import ggplot
-from spectredash.plots import plot_pipe
-from spectredash.utils import shared_first_choice
+from sp3ctrapp.plots import plot_pipe
+from sp3ctrapp.utils import shared_first_choice
 
 
 

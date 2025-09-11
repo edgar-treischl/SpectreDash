@@ -1,4 +1,4 @@
-# src/spectredash/__init__.py
+# src/sp3ctrapp/__init__.py
 
 # Expose commonly used elements for easy access
 from .getduck import duckdb_table  # Expose the DuckDB function

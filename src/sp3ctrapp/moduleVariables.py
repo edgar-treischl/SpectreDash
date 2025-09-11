@@ -1,36 +1,32 @@
 from shiny import module, reactive, render, ui
 import emoji
 from plotnine import ggplot
-from spectredash.plots import plot_TypeMatrixWeb
-from spectredash.utils import shared_first_choice
+from sp3ctrapp.plots import plot_PresenceMatrixWeb
+from sp3ctrapp.utils import shared_first_choice
 
 
 @module.ui
-def class_ui():
+def variables_ui():
     return ui.navset_card_underline(
         ui.nav_panel(
-            ui.h4(f"{emoji.emojize(':school:')} Classes", class_="m-0"),
+            ui.h4(f"{emoji.emojize(':bullseye:')} Variables", class_="m-0"),
             ui.row(
                 ui.column(
                     3,
                     ui.card(
                         ui.p(
-                            "This panel shows the distribution of classes (levels) across dataset versions."
+                            "Which variables are included in the data? This view helps compare column presence across different dataset versions."
                         ),
                         ui.tags.ul(
+                            ui.tags.li("Each row represents a dataset version."),
+                            ui.tags.li("Each column represents a variable."),
                             ui.tags.li(
-                                "Each facet or section represents one categorical variable."
-                            ),
-                            ui.tags.li(
-                                "You can track if levels have changed, disappeared, or appeared."
-                            ),
-                            ui.tags.li(
-                                "Useful for identifying category drift or inconsistent encoding."
+                                "Green cells indicate presence; red indicate absence."
                             ),
                         ),
                         ui.p(
                             {"class": "text-muted small"},
-                            "Look for unexpected class changes or missing categories over time.",
+                            "Use this to detect schema drift or inconsistencies over time.",
                         ),
                     ),
                 ),
@@ -38,7 +34,8 @@ def class_ui():
                     9,
                     ui.card(
                         ui.div(
-                            {"style": "overflow-x: auto"}, ui.output_ui("class_plot_ui")
+                            {"style": "overflow-x: auto"},
+                            ui.output_ui("presence_plot_ui"),
                         )
                     ),
                 ),
@@ -48,18 +45,18 @@ def class_ui():
 
 
 @module.server
-def class_server(input, output, session):
+def variables_server(input, output, session):
     plot_state = reactive.Value({"success": True, "error": None, "plot": None})
 
     @reactive.Calc
-    def class_plot():
+    def presence_plot():
         user_table = shared_first_choice.get()
 
         if not user_table:
             return {"success": False, "error": "No dataset selected.", "plot": None}
 
         try:
-            plot_obj = plot_TypeMatrixWeb(table=user_table)
+            plot_obj = plot_PresenceMatrixWeb(table=user_table)
             return {"success": True, "plot": plot_obj, "error": None}
         except Exception as e:
             return {
@@ -70,16 +67,15 @@ def class_server(input, output, session):
 
     @reactive.Effect
     def update_state():
-        plot_state.set(class_plot())
+        plot_state.set(presence_plot())
 
     @output
     @render.ui
-    def class_plot_ui():
+    def presence_plot_ui():
         result = plot_state.get()
         if result["success"] and isinstance(result["plot"], ggplot):
             return ui.div(
-                # The output_plot ID here must be unique and matched by the render.plot below
-                ui.output_plot("class_matrix_plot", width="100%", height="600px")
+                ui.output_plot("presence_matrix_plot", width="100%", height="500px")
             )
         else:
             return ui.div(
@@ -93,7 +89,7 @@ def class_server(input, output, session):
             )
 
     @output
-    @render.plot(alt="Class Matrix")
-    def class_matrix_plot():
+    @render.plot(alt="Presence Matrix")
+    def presence_matrix_plot():
         result = plot_state.get()
         return result["plot"] if result["success"] else None

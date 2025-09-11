@@ -1,8 +1,8 @@
 from shiny import module, render, ui, reactive
 import emoji
 from htmltools import HTML
-from spectredash.getgit import get_diff, visualize_diff
-from spectredash.utils import shared_first_choice
+from sp3ctrapp.getgit import get_diff, visualize_diff
+from sp3ctrapp.utils import shared_first_choice
 
 
 @module.ui

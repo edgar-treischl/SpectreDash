@@ -4,14 +4,14 @@ from pathlib import Path
 import emoji
 
 
-from spectredash.moduleAbout import about_ui, about_server
-from spectredash.moduleOverview import overview_ui, overview_server
-from spectredash.moduleValidation import validation_ui, validation_server
-from spectredash.moduleVariables import variables_ui, variables_server
-from spectredash.moduleClass import class_ui, class_server
-from spectredash.moduleLabels import labels_ui, labels_server
-from spectredash.moduleDiff import diff_ui, diff_server
-from spectredash.modulePipe import pipe_ui, pipe_server
+from sp3ctrapp.moduleAbout import about_ui, about_server
+from sp3ctrapp.moduleOverview import overview_ui, overview_server
+from sp3ctrapp.moduleValidation import validation_ui, validation_server
+from sp3ctrapp.moduleVariables import variables_ui, variables_server
+from sp3ctrapp.moduleClass import class_ui, class_server
+from sp3ctrapp.moduleLabels import labels_ui, labels_server
+from sp3ctrapp.moduleDiff import diff_ui, diff_server
+from sp3ctrapp.modulePipe import pipe_ui, pipe_server
 
 
 # ---- App UI ----

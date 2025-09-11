@@ -14,7 +14,7 @@ def duckdb_table(table):
     Returns:
     - pd.DataFrame: Data from the specified table.
     """
-    db_path = os.path.join(os.getcwd(), "src", "spectredash", "data", "meta.duckdb")
+    db_path = os.path.join(os.getcwd(), "src", "sp3ctrapp", "data", "meta.duckdb")
 
     # Check if the database file exists
     if not os.path.exists(db_path):

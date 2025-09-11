@@ -5,9 +5,9 @@ from shiny import module, reactive, render, ui
 import os
 import emoji
 
-from spectredash.getduck import duckdb_table
+from sp3ctrapp.getduck import duckdb_table
 
-from spectredash.utils import shared_first_choice, shared_second_choice
+from sp3ctrapp.utils import shared_first_choice, shared_second_choice
 
 
 @module.ui
@@ -81,7 +81,7 @@ def validation_server(input, output, session):
 
             # report_path = os.path.join("data", pointer_df.iloc[0]["report_path"])
             report_path = os.path.join(
-                "src", "spectredash", "data", pointer_df.iloc[0]["report_path"]
+                "src", "sp3ctrapp", "data", pointer_df.iloc[0]["report_path"]
             )
 
             if os.path.exists(report_path):
