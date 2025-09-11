@@ -6,7 +6,7 @@ on:
       - main
     paths:
       - 'Dockerfile'
-      - 'src/spectredash/**'
+      - 'src/sp3ctrapp/**'
 
 jobs:
   build-and-push:
