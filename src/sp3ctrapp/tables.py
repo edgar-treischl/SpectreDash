@@ -7,7 +7,7 @@ from sp3ctrapp.getduck import duckdb_table
 
 def table_overview(df: pd.DataFrame) -> GT:
     """
-    Generate a styled table overview of the latest runs per table with clickable links.
+    Generate a styled table overview of the latest runs per table.
 
     Args:
         df (pd.DataFrame): Input dataframe containing columns
